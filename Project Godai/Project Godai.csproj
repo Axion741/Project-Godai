@@ -316,7 +316,11 @@
     <Compile Include="Assets\Scripts\BarController.cs" />
     <Compile Include="Assets\Scripts\EnemyAbilities.cs" />
     <Compile Include="Assets\Scripts\EnemyProjectile.cs" />
+    <Compile Include="Assets\Scripts\EnemyStatsScripts\DefaultEnemyStats.cs" />
+    <Compile Include="Assets\Scripts\EnemyStatsScripts\EnemyStatFactory.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\GoblinStats.cs" />
+    <Compile Include="Assets\Scripts\EnemyStatsScripts\IEnemyStats.cs" />
+    <Compile Include="Assets\Scripts\EnemyStatsScripts\SkeletonStats.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
     <Compile Include="Assets\Scripts\ModNumberController.cs" />
     <Compile Include="Assets\Scripts\MusicManager.cs" />

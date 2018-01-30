@@ -9,8 +9,11 @@ public class EnemyAbilities : MonoBehaviour {
     private GameObject pBlast;
     private ResultsController resultsController;
     private bool defeated = false;
+    private string enemyType;
+    private EnemyStatFactory enemyStatFactory;
+    private IEnemyStats enemyStats;
 
-    public PlayerStats playerStats;
+    public PlayerAbilities playerAbilities;
     public GameObject player;
     public GameObject blast;
    
@@ -20,37 +23,64 @@ public class EnemyAbilities : MonoBehaviour {
     float hitValue;
     float playerDodge;
     
-    public static float evasionChance = 10f;
+    public static float evasionChance;
     public float currentHealth;
-    public float maxHealth = 100;
+    public float maxHealth;
     public float currentMP;
-    public float maxMP = 100;
+    public float maxMP;
 
     public float experienceValue;
 
-    public float damage = 10;
+    private float damage;
+    private float sDamage;
     private float attackBoost = 1f;
 
 
     // Use this for initialization
     void Start () {
+        GrabStats();
+        player = GameObject.Find("PlayerCharacter");
         pAnim = player.GetComponent<Animator>();
         eAnim = GetComponent<Animator>();
-        playerStats = GameObject.FindObjectOfType<PlayerStats>();
+        playerAbilities = GameObject.FindObjectOfType<PlayerAbilities>();
         resultsController = FindObjectOfType<ResultsController>();
-        currentHealth = maxHealth;
-        currentMP = maxMP;
-	}
+        SetupStats();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        
+
 	}
+
+    private void GrabStats()
+    {
+        enemyType = this.gameObject.name.ToString();
+        print(enemyType);
+        enemyStatFactory = FindObjectOfType<EnemyStatFactory>();
+        enemyStats = enemyStatFactory.Create(enemyType);
+        print("enemyStats = " + enemyStats);
+    }
+
+    private void SetupStats()
+    {
+        maxHealth = enemyStats.MaxHealth;
+        print("maxHP = " + maxHealth);
+        currentHealth = maxHealth;
+        print("currentHP = " + currentHealth);
+        maxMP = enemyStats.MaxMP;
+        print("maxMP = " + maxMP);
+        currentMP = maxMP;
+        print("currentMP = " + currentMP);
+        damage = enemyStats.PhysicalDamage;
+        sDamage = enemyStats.MagicDamage;
+        evasionChance = enemyStats.EvasionChance;
+        experienceValue = enemyStats.ExperienceValue;
+    }
 
     private void HitChecker()
     {
         hitValue = Random.Range(0, 100);
-        playerDodge = playerStats.evasionChance;       
+        playerDodge = playerAbilities.evasionChance;       
     }
 
     private void PunchAttack()
@@ -117,7 +147,7 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-            PlayerAbilities.currentHealth = PlayerAbilities.currentHealth - damage * 4f * attackBoost;
+            PlayerAbilities.currentHealth = PlayerAbilities.currentHealth - sDamage * 4f * attackBoost;
             pAnim.SetTrigger("isDamaged");
         }
     }
@@ -151,7 +181,7 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-            PlayerAbilities.currentHealth = PlayerAbilities.currentHealth - damage * 1.5f * attackBoost;
+            PlayerAbilities.currentHealth = PlayerAbilities.currentHealth - sDamage * 1.5f * attackBoost;
             pAnim.SetTrigger("isDamaged");
         }
     }

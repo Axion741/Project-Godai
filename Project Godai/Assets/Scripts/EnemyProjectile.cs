@@ -15,7 +15,7 @@ public class EnemyProjectile : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        enemy = GameObject.Find("EnemyCharacter");
+        enemy = GameObject.Find("EnemySpawn1");
         enemyAbilities = enemy.GetComponentInChildren<EnemyAbilities>();
         SetLevelColor();
         ProjectileColor();

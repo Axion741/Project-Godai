@@ -14,6 +14,7 @@ public class PlayerAbilities : MonoBehaviour
     private SpriteRenderer backRender;
 
     public PlayerStats playerStats;
+    public GameObject enemySpawn1;
     public GameObject enemy;
     public GameObject blast;
     public GameObject auraFront;
@@ -26,6 +27,7 @@ public class PlayerAbilities : MonoBehaviour
     public static float maxMP;
     public static float currentPP;
     public static float maxPP;
+    public float evasionChance;
 
     private float damage;
     private float sDamage;
@@ -43,6 +45,8 @@ public class PlayerAbilities : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        enemySpawn1 = GameObject.Find("EnemySpawn1");
+        enemy = enemySpawn1.transform.GetChild(0).gameObject;
         eAnim = enemy.GetComponent<Animator>();
         pAnim = GetComponent<Animator>();
         playerStats = GameObject.FindObjectOfType<PlayerStats>();
@@ -84,6 +88,7 @@ public class PlayerAbilities : MonoBehaviour
         maxPP = playerStats.maxPP;
         currentPP = 0;
         breakChance = PlayerPrefsManager.GetBreakChance();
+        evasionChance = playerStats.evasionChance;
     }
 
     private void HitChecker()

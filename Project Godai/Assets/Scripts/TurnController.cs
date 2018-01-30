@@ -20,7 +20,7 @@ public class TurnController : MonoBehaviour {
     void Start () {
         playerTurn = true;
         ControlBlocker = GameObject.Find("Control Blocker");
-        Enemy = GameObject.Find("EnemyCharacter");
+        Enemy = GameObject.Find("EnemySpawn1");
         UIController();
     }
 	
