@@ -331,6 +331,7 @@
     <Compile Include="Assets\Scripts\PlayerProjectile.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\ResultsController.cs" />
+    <Compile Include="Assets\Scripts\SpawnController.cs" />
     <Compile Include="Assets\Scripts\SplashLoad.cs" />
     <Compile Include="Assets\Scripts\TurnController.cs" />
   </ItemGroup>

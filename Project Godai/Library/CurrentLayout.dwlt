@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 109
+  controlID: 121
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 12
+  controlID: 55
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 13
+  controlID: 56
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -371,7 +371,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 9282f8ffa685f8ffc69ef8ff52aff8ffa4f4f8ff0c02f9ffa002f9ff18a4f9ff2c4ffaff32adfaff4651fcff1ac8fcff3252fdff1459fdff8c81fdff4acefdff96fbffff00000000362a0000925f000000600000586000008860000090600000246800002e6d0000346d00004a6d000002850000de890000e4890000a6980000f89800002a9900002e9900008e99000074a8000092aa0000
+    m_ExpandedIDs: 96fbffff000000003e2a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -427,9 +427,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 5.317375, y: 3.0714328, z: 10.158203}
+    m_Target: {x: 5.632529, y: 3.041763, z: 10.150039}
     speed: 2
-    m_Value: {x: 5.317375, y: 3.0714328, z: 10.158203}
+    m_Value: {x: 5.632529, y: 3.041763, z: 10.150039}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -457,9 +457,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 6.861954
+    m_Target: 7.7046695
     speed: 2
-    m_Value: 6.861954
+    m_Value: 7.7046695
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -539,20 +539,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs/EnemyPrefabs
+    - Assets/Prefabs/Resources/EnemyPrefabs
   m_ViewMode: 1
   m_StartGridSize: 68
   m_LastFolders:
-  - Assets/Prefabs/EnemyPrefabs
+  - Assets/Prefabs/Resources/EnemyPrefabs
   m_LastFoldersGridSize: 68
   m_LastProjectPath: C:\Users\Kyle\Documents\repos\Unity\Project Godai\Project-Godai\Project
     Godai
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 52290000
-    m_LastClickedID: 10578
-    m_ExpandedIDs: 00000000ca270000fe2800003c2900005e2900009429000000ca9a3bffffff7f
+    m_SelectedIDs: 58290000
+    m_LastClickedID: 10584
+    m_ExpandedIDs: 00000000d22700000429000042290000642900009a290000722d000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -580,7 +580,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ca270000fe2800003c2900005e29000094290000
+    m_ExpandedIDs: 00000000d22700000429000042290000642900009a290000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
