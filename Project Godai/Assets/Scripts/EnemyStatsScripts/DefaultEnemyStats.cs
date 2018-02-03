@@ -5,7 +5,7 @@ using UnityEngine;
 public class DefaultEnemyStats : MonoBehaviour, IEnemyStats{
 
     private int strength = 1;
-    private int speed = 1;
+    public int Speed { get; set; }
     private int endurance = 1;
     private int spirit = 1;
 
@@ -26,6 +26,11 @@ public class DefaultEnemyStats : MonoBehaviour, IEnemyStats{
 
     private void GenerateStats()
     {
+
+        //SetSpeedHere
+        Speed = 1;
+
+
         EnemyLevel = Random.Range(1, 1);
         //Debug.Log("enemy level = " + enemyLevel);
         MaxHealth = (endurance + EnemyLevel) * 10;
@@ -36,7 +41,7 @@ public class DefaultEnemyStats : MonoBehaviour, IEnemyStats{
         //Debug.Log("enemy DMG = " + physicalDamage);
         MagicDamage = (spirit + EnemyLevel) * 1.5f;
         //Debug.Log("enemy mDMG = " + magicDamage);
-        EvasionChance = (speed + EnemyLevel) / 2;
+        EvasionChance = (Speed + EnemyLevel) / 2;
         //Debug.Log("enemy EVA = " + evasionChance);
         ExperienceValue = EnemyLevel * 100;
     }

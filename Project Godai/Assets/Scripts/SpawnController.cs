@@ -18,7 +18,7 @@ public class SpawnController : MonoBehaviour {
 	void Start () {
         SpawnerSetup();
         RandomiseSpawn();
-        SpawnEnemy(enemyCount);
+        SpawnEnemies(enemyCount);
 	}
 	
 	// Update is called once per frame
@@ -46,28 +46,37 @@ public class SpawnController : MonoBehaviour {
         enemy3 = enemyPrefabArray[randomChoice];
     }
 
-    void SpawnEnemy(int enemyCount)
+
+
+    void SpawnEnemies(int enemyCount)
+    {
+        SpawnEnemy1();
+        if (enemyCount > 1)
+        {
+            SpawnEnemy2();
+        }
+        if (enemyCount == 3)
+        {
+            SpawnEnemy3();
+        }
+
+    }
+
+
+    void SpawnEnemy1()
     {
         GameObject SpawnedEnemy1 = Instantiate(enemy1, enemySpawn1.transform.position, Quaternion.identity, enemySpawn1.transform);
         SpawnedEnemy1.name = enemy1.name;
-        if(enemyCount == 1)
-        {
-            return;
-        } else
-            {
-            GameObject SpawnedEnemy2 = Instantiate(enemy2, enemySpawn2.transform.position, Quaternion.identity, enemySpawn2.transform);
-            SpawnedEnemy2.name = enemy2.name;
-            if(enemyCount == 2)
-            {
-                return;
-            }
-            else
-                {
-                GameObject SpawnedEnemy3 = Instantiate(enemy3, enemySpawn3.transform.position, Quaternion.identity, enemySpawn3.transform);
-                SpawnedEnemy3.name = enemy3.name;
-                }
-
-        }
     }
 
+    void SpawnEnemy2()
+{
+        GameObject SpawnedEnemy2 = Instantiate(enemy2, enemySpawn2.transform.position, Quaternion.identity, enemySpawn2.transform);
+        SpawnedEnemy2.name = enemy2.name;
+}
+        void SpawnEnemy3()
+    {
+       GameObject SpawnedEnemy3 = Instantiate(enemy3, enemySpawn3.transform.position, Quaternion.identity, enemySpawn3.transform);
+       SpawnedEnemy3.name = enemy3.name;  
+    }
 }

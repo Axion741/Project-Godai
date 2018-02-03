@@ -11,7 +11,7 @@ public class EnemyAbilities : MonoBehaviour {
     private bool defeated = false;
     private string enemyType;
     private EnemyStatFactory enemyStatFactory;
-    private IEnemyStats enemyStats;
+    public IEnemyStats enemyStats;
 
     public PlayerAbilities playerAbilities;
     public GameObject player;
@@ -57,7 +57,7 @@ public class EnemyAbilities : MonoBehaviour {
         enemyType = this.gameObject.name.ToString();
         print(enemyType);
         enemyStatFactory = FindObjectOfType<EnemyStatFactory>();
-        enemyStats = enemyStatFactory.Create(enemyType);
+        enemyStats = enemyStatFactory.Create(enemyType, gameObject);
         print("enemyStats = " + enemyStats);
     }
 

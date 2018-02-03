@@ -50,7 +50,7 @@ public class PlayerAbilities : MonoBehaviour
         eAnim = enemy.GetComponent<Animator>();
         pAnim = GetComponent<Animator>();
         playerStats = GameObject.FindObjectOfType<PlayerStats>();
-        enemyAbilities = GameObject.FindObjectOfType<EnemyAbilities>();
+        enemyAbilities = enemy.GetComponent<EnemyAbilities>();
         resultsController = FindObjectOfType<ResultsController>();
         GetStats();
         frontRender = auraFront.GetComponent<SpriteRenderer>();

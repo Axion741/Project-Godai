@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class EnemyStatFactory : MonoBehaviour {
 
-    public IEnemyStats Create(string enemyType)
+    public IEnemyStats Create(string enemyType, GameObject targetCharacter)
     {
         switch (enemyType.ToLower())
         {
             case "goblin":
                 print("Generating GoblinStats");
-                return gameObject.AddComponent<GoblinStats>();
+                return targetCharacter.AddComponent<GoblinStats>();
 
             case "skeleton":
-                return gameObject.AddComponent<SkeletonStats>();
+                return targetCharacter.AddComponent<SkeletonStats>();
 
             default:
-                return gameObject.AddComponent<DefaultEnemyStats>();
+                return targetCharacter.AddComponent<DefaultEnemyStats>();
             
         }
     }

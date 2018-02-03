@@ -8,6 +8,6 @@
     float MagicDamage { get; set; }
     float EvasionChance { get; set; }
     float ExperienceValue { get; set; }
-
+    int Speed { get; set; }
 
 }

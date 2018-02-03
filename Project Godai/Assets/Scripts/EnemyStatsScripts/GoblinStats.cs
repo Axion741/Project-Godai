@@ -6,7 +6,7 @@ public class GoblinStats : MonoBehaviour, IEnemyStats {
 
 
     private int strength = 5;
-    private int speed = 5;
+    public int Speed { get; set; }
     private int endurance = 5;
     private int spirit = 5;
 
@@ -27,6 +27,11 @@ public class GoblinStats : MonoBehaviour, IEnemyStats {
 
     private void GenerateStats()
     {
+
+        //SetSpeedHere
+        Speed = 5;
+
+
         EnemyLevel = Random.Range(1, 6);
         Debug.Log("enemy level = " + EnemyLevel);
         MaxHealth = (endurance + EnemyLevel) * 10;
@@ -37,8 +42,8 @@ public class GoblinStats : MonoBehaviour, IEnemyStats {
         //Debug.Log("enemy DMG = " + physicalDamage);
         MagicDamage = (spirit + EnemyLevel) * 1.5f;
         //Debug.Log("enemy mDMG = " + magicDamage);
-        EvasionChance = (speed + EnemyLevel) / 2;
-        //Debug.Log("enemy EVA = " + evasionChance);
+        EvasionChance = (Speed + EnemyLevel) / 2;
+        //Debug.Log("enemy EVA = " + EvasionChance);
         ExperienceValue = EnemyLevel * 100;
     }
 }

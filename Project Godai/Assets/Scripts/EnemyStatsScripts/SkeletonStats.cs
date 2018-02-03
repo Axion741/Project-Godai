@@ -5,7 +5,7 @@ using UnityEngine;
 public class SkeletonStats : MonoBehaviour, IEnemyStats{
 
     private int strength = 7;
-    private int speed = 3;
+    public int Speed { get; set; }
     private int endurance = 10;
     private int spirit = 1;
 
@@ -26,6 +26,11 @@ public class SkeletonStats : MonoBehaviour, IEnemyStats{
 
     private void GenerateStats()
     {
+
+        //SetSpeedHere
+        Speed = 3;
+
+
         EnemyLevel = Random.Range(3, 11);
         Debug.Log("enemy level = " + EnemyLevel);
         MaxHealth = (endurance + EnemyLevel) * 10;
@@ -36,8 +41,8 @@ public class SkeletonStats : MonoBehaviour, IEnemyStats{
         //Debug.Log("enemy DMG = " + physicalDamage);
         MagicDamage = (spirit + EnemyLevel) * 1.5f;
         //Debug.Log("enemy mDMG = " + magicDamage);
-        EvasionChance = (speed + EnemyLevel) / 2;
-        //Debug.Log("enemy EVA = " + evasionChance);
+        EvasionChance = (Speed + EnemyLevel) / 2;
+        //Debug.Log("enemy EVA = " + EvasionChance);
         ExperienceValue = EnemyLevel * 150;
     }
 }
