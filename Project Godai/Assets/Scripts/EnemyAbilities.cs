@@ -11,8 +11,9 @@ public class EnemyAbilities : MonoBehaviour {
     private bool defeated = false;
     private string enemyType;
     private EnemyStatFactory enemyStatFactory;
-    public IEnemyStats enemyStats;
+    private IEnemyStats enemyStats;
 
+    public TurnManager turnManager;
     public PlayerAbilities playerAbilities;
     public GameObject player;
     public GameObject blast;
@@ -28,8 +29,8 @@ public class EnemyAbilities : MonoBehaviour {
     public float maxHealth;
     public float currentMP;
     public float maxMP;
-
     public float experienceValue;
+    public int turnSpeed;
 
     private float damage;
     private float sDamage;
@@ -44,6 +45,7 @@ public class EnemyAbilities : MonoBehaviour {
         eAnim = GetComponent<Animator>();
         playerAbilities = GameObject.FindObjectOfType<PlayerAbilities>();
         resultsController = FindObjectOfType<ResultsController>();
+        turnManager = FindObjectOfType<TurnManager>();
         SetupStats();
     }
 	
@@ -75,6 +77,9 @@ public class EnemyAbilities : MonoBehaviour {
         sDamage = enemyStats.MagicDamage;
         evasionChance = enemyStats.EvasionChance;
         experienceValue = enemyStats.ExperienceValue;
+        turnSpeed = enemyStats.Speed;
+        print("turnspeed = " + turnSpeed);
+        turnManager.FindStats();
     }
 
     private void HitChecker()
