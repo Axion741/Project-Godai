@@ -39,14 +39,14 @@ public class EnemyAbilities : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        GrabStats();
+       // GrabStats();
         player = GameObject.Find("PlayerCharacter");
         pAnim = player.GetComponent<Animator>();
         eAnim = GetComponent<Animator>();
         playerAbilities = GameObject.FindObjectOfType<PlayerAbilities>();
         resultsController = FindObjectOfType<ResultsController>();
         turnManager = FindObjectOfType<TurnManager>();
-        SetupStats();
+        //SetupStats();
     }
 	
 	// Update is called once per frame
@@ -54,7 +54,7 @@ public class EnemyAbilities : MonoBehaviour {
 
 	}
 
-    private void GrabStats()
+    public void GrabStats()
     {
         enemyType = this.gameObject.name.ToString();
         print(enemyType);
@@ -63,7 +63,7 @@ public class EnemyAbilities : MonoBehaviour {
         print("enemyStats = " + enemyStats);
     }
 
-    private void SetupStats()
+    public void SetupStats()
     {
         maxHealth = enemyStats.MaxHealth;
         print("maxHP = " + maxHealth);
@@ -79,7 +79,6 @@ public class EnemyAbilities : MonoBehaviour {
         experienceValue = enemyStats.ExperienceValue;
         turnSpeed = enemyStats.Speed;
         print("turnspeed = " + turnSpeed);
-        turnManager.FindStats();
     }
 
     private void HitChecker()

@@ -12,19 +12,25 @@ public class SpawnController : MonoBehaviour {
     public GameObject enemy2;
     public GameObject enemy3;
     private int randomChoice;
-    private int enemyCount;
+    public int enemyCount;
 
 	// Use this for initialization
 	void Start () {
-        SpawnerSetup();
-        RandomiseSpawn();
-        SpawnEnemies(enemyCount);
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 	}
+
+    public void SpawnSequence()
+    {
+        SpawnerSetup();
+        RandomiseSpawn();
+        SpawnEnemies(enemyCount);
+    }
+
 
     void SpawnerSetup()
     {

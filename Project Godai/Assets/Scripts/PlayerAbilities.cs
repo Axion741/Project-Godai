@@ -45,16 +45,7 @@ public class PlayerAbilities : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        enemySpawn1 = GameObject.Find("EnemySpawn1");
-        enemy = enemySpawn1.transform.GetChild(0).gameObject;
-        eAnim = enemy.GetComponent<Animator>();
-        pAnim = GetComponent<Animator>();
-        playerStats = GameObject.FindObjectOfType<PlayerStats>();
-        enemyAbilities = enemy.GetComponent<EnemyAbilities>();
-        resultsController = FindObjectOfType<ResultsController>();
-        GetStats();
-        frontRender = auraFront.GetComponent<SpriteRenderer>();
-        backRender = auraBack.GetComponent<SpriteRenderer>();
+
     }
 
     // Update is called once per frame
@@ -76,6 +67,20 @@ public class PlayerAbilities : MonoBehaviour
     }
 
     //Stat Control
+
+    public void PlayerAbilitiesSetup()
+    {
+        enemySpawn1 = GameObject.Find("EnemySpawn1");
+        enemy = enemySpawn1.transform.GetChild(0).gameObject;
+        eAnim = enemy.GetComponent<Animator>();
+        pAnim = GetComponent<Animator>();
+        playerStats = GameObject.FindObjectOfType<PlayerStats>();
+        enemyAbilities = enemy.GetComponent<EnemyAbilities>();
+        resultsController = FindObjectOfType<ResultsController>();
+        GetStats();
+        frontRender = auraFront.GetComponent<SpriteRenderer>();
+        backRender = auraBack.GetComponent<SpriteRenderer>();
+    }
 
     public void GetStats()
     {

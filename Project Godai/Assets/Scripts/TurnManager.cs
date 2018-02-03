@@ -17,6 +17,7 @@ public class TurnManager : MonoBehaviour {
     public EnemyAbilities enemyAbilities1;
     public EnemyAbilities enemyAbilities2;
     public EnemyAbilities enemyAbilities3;
+    private SpawnController spawnController;
 
     public int player1Speed;
     public int enemy1Speed;
@@ -28,7 +29,7 @@ public class TurnManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        FindCharacters();
+
     }
 	
 	// Update is called once per frame
@@ -36,27 +37,27 @@ public class TurnManager : MonoBehaviour {
 		
 	}
 
-    void FindCharacters()
+    public void FindCharacters()
     {
+        spawnController = FindObjectOfType<SpawnController>();
         player1 = GameObject.Find("PlayerCharacter");
         enemySpawn1 = GameObject.Find("EnemySpawn1");
         enemySpawn2 = GameObject.Find("EnemySpawn2");
         enemySpawn3 = GameObject.Find("EnemySpawn3");
 
-        if (enemySpawn1.transform.GetChild(0).gameObject != null)
-        {
             enemy1 = enemySpawn1.transform.GetChild(0).gameObject;
-        }
-
-        if (enemySpawn2.transform.GetChild(0).gameObject != null)
+        
+        if (spawnController.enemyCount > 1)
         {
             enemy2 = enemySpawn2.transform.GetChild(0).gameObject;
         }
-  
-        if (enemySpawn3.transform.GetChild(0).gameObject != null)
+        else enemy2 = null;
+
+        if (spawnController.enemyCount == 3)
         {
             enemy3 = enemySpawn3.transform.GetChild(0).gameObject;
         }
+        else enemy3 = null;
     }
 
 
@@ -85,8 +86,29 @@ public class TurnManager : MonoBehaviour {
             enemyAbilities3 = enemy3.GetComponent<EnemyAbilities>();
             enemy3Speed = enemyAbilities3.turnSpeed;
         }
+    }
+
+    public void BuildTurnTimeline()
+    {
+        Dictionary<string, int> turnTimeline = new Dictionary<string, int>();
+
+        turnTimeline.Add("player1", player1Speed);
+        turnTimeline.Add("enemy1", enemy1Speed);
+        if (spawnController.enemyCount > 1)
+        {
+            turnTimeline.Add("enemy2", enemy2Speed);
+        }
+        else return;
+        if (spawnController.enemyCount == 3)
+        {
+            turnTimeline.Add("enemy3", enemy3Speed);
+        }
+        else return;
 
 
-
+        foreach (KeyValuePair<string, int> kvp in turnTimeline)
+        {
+            print("DictVal = " + kvp.Key + " + " + kvp.Value);
+        }
     }
 }

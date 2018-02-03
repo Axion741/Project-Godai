@@ -314,6 +314,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AttackSoundController.cs" />
     <Compile Include="Assets\Scripts\BarController.cs" />
+    <Compile Include="Assets\Scripts\BattleController.cs" />
     <Compile Include="Assets\Scripts\EnemyAbilities.cs" />
     <Compile Include="Assets\Scripts\EnemyProjectile.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\DefaultEnemyStats.cs" />

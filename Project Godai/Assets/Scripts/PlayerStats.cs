@@ -41,6 +41,16 @@ public class PlayerStats : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+
+  	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+    public void PlayerStatsSetup()
+    {
         GetSavedStats();
         DetermineStrength();
         DetermineSpirit();
@@ -51,12 +61,7 @@ public class PlayerStats : MonoBehaviour {
         DeterminePP();
         LevelUp();
         resController = FindObjectOfType<ResultsController>();
-  	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
 
     public void LevelTester()
     {
