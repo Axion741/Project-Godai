@@ -32,7 +32,6 @@ public class BattleController : MonoBehaviour {
         turnManager.FindCharacters();
         turnManager.FindStats();
         turnManager.BuildTurnTimeline();
-
     }
 
     void Setup()

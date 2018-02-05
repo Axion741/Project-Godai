@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour {
@@ -61,7 +62,7 @@ public class TurnManager : MonoBehaviour {
     }
 
 
-    //Called from EnemyAbilities.SetupStats to ensure turnspeeds are set correctly
+  
     public void FindStats()
     {
         playerStats1 = GameObject.FindObjectOfType<PlayerStats>();
@@ -70,7 +71,7 @@ public class TurnManager : MonoBehaviour {
 
         if(enemy1 != null)
         {
-            //enemyStats1 = enemy1.GetComponentInChildren<IEnemyStats>();
+
             enemyAbilities1 = enemy1.GetComponent<EnemyAbilities>();
             enemy1Speed = enemyAbilities1.turnSpeed;
         }
@@ -94,16 +95,20 @@ public class TurnManager : MonoBehaviour {
 
         turnTimeline.Add("player1", player1Speed);
         turnTimeline.Add("enemy1", enemy1Speed);
+
+
         if (spawnController.enemyCount > 1)
         {
             turnTimeline.Add("enemy2", enemy2Speed);
         }
-        else return;
+        
         if (spawnController.enemyCount == 3)
         {
             turnTimeline.Add("enemy3", enemy3Speed);
         }
-        else return;
+        
+
+        turnTimeline = turnTimeline.OrderByDescending(x => x.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
 
 
         foreach (KeyValuePair<string, int> kvp in turnTimeline)
