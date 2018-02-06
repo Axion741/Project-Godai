@@ -11,6 +11,9 @@ public class SpawnController : MonoBehaviour {
     public GameObject enemy1;
     public GameObject enemy2;
     public GameObject enemy3;
+    private int enemy1Index;
+    private int enemy2Index;
+    private int enemy3Index;
     private int randomChoice;
     public int enemyCount;
 
@@ -24,10 +27,29 @@ public class SpawnController : MonoBehaviour {
 
 	}
 
-    public void SpawnSequence()
+    public void RunSpawnScript(string battleType)
+    {
+        if (battleType == "random")
+        {
+            RandomSpawnSequence();
+        }
+        else
+        {
+            PresetSpawnSequence(battleType);
+        }
+    }
+
+    void PresetSpawnSequence(string battleType)
     {
         SpawnerSetup();
-        RandomiseSpawn();
+        AssignPresetSpawns(battleType);
+        SpawnEnemies(enemyCount);
+    }
+
+    public void RandomSpawnSequence()
+    {
+        SpawnerSetup();
+        AssignRandomSpawns();
         SpawnEnemies(enemyCount);
     }
 
@@ -38,18 +60,25 @@ public class SpawnController : MonoBehaviour {
         enemySpawn1 = GameObject.Find("EnemySpawn1");
         enemySpawn2 = GameObject.Find("EnemySpawn2");
         enemySpawn3 = GameObject.Find("EnemySpawn3");
-        enemyCount = Random.Range(1, 4);
-        print("enemycount = " + enemyCount);
     }
 
-    void RandomiseSpawn()
+    void AssignRandomSpawns()
     {
+        enemyCount = Random.Range(1, 4);
         randomChoice = Random.Range(0, enemyPrefabArray.Length);
         enemy1 = enemyPrefabArray[randomChoice];
         randomChoice = Random.Range(0, enemyPrefabArray.Length);
         enemy2 = enemyPrefabArray[randomChoice];
         randomChoice = Random.Range(0, enemyPrefabArray.Length);
         enemy3 = enemyPrefabArray[randomChoice];
+    }
+
+    void AssignPresetSpawns(string battleType)
+    {
+        DetermineBattletype(battleType);
+        enemy1 = enemyPrefabArray[enemy1Index];
+        enemy2 = enemyPrefabArray[enemy2Index];
+        enemy3 = enemyPrefabArray[enemy3Index];
     }
 
 
@@ -65,7 +94,6 @@ public class SpawnController : MonoBehaviour {
         {
             SpawnEnemy3();
         }
-
     }
 
 
@@ -76,13 +104,46 @@ public class SpawnController : MonoBehaviour {
     }
 
     void SpawnEnemy2()
-{
+    {
         GameObject SpawnedEnemy2 = Instantiate(enemy2, enemySpawn2.transform.position, Quaternion.identity, enemySpawn2.transform);
         SpawnedEnemy2.name = enemy2.name;
-}
-        void SpawnEnemy3()
+    }
+
+    void SpawnEnemy3()
     {
        GameObject SpawnedEnemy3 = Instantiate(enemy3, enemySpawn3.transform.position, Quaternion.identity, enemySpawn3.transform);
        SpawnedEnemy3.name = enemy3.name;  
     }
+
+
+    //BattleTypes are for prebaked/story battles. Indexes are based on the order in the prefab folder. Buttons initiating battle should run LoadBattle and input the battleType as a string.
+    void DetermineBattletype(string battleType)
+    {
+        if (battleType == "goblin party")
+        {
+            enemyCount = 3;
+            enemy1Index = 0;
+            enemy2Index = 0;
+            enemy3Index = 0;
+        }
+
+        if (battleType == "skeletal smash")
+        {
+            enemyCount = 3;
+            enemy1Index = 1;
+            enemy2Index = 1;
+            enemy3Index = 1;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

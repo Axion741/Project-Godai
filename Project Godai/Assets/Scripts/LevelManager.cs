@@ -7,6 +7,13 @@ public class LevelManager : MonoBehaviour {
 
     public float autoLoadNextLevelAfter;
     public static bool cameFromOptionsMenu = false;
+    public string battleType;
+
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
 
     private void Start()
     {
@@ -36,11 +43,17 @@ public class LevelManager : MonoBehaviour {
     }
 
 
-        public void LoadLevel(string name) //USE IF LOADING A LEVEL
+    public void LoadLevel(string name) //USE IF LOADING A LEVEL
     {
         
         SceneManager.LoadScene(name);
        
+    }
+
+    public void LoadBattle(string battleIndex)
+    {
+        battleType = battleIndex;
+        SceneManager.LoadScene("02a_BattleScene");
     }
 
     public void QuitRequest() {

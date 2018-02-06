@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattleController : MonoBehaviour {
 
+    private LevelManager levelManager;
     private TurnManager turnManager;
     private SpawnController spawnController;
     private EnemyAbilities enemyAbilities1;
@@ -19,13 +20,15 @@ public class BattleController : MonoBehaviour {
     private GameObject enemy2;
     private GameObject enemy3;
 
+    public string battleType;
+
 
 
     // Use this for initialization
     void Awake () {
         Setup();
         playerStats.PlayerStatsSetup();
-        spawnController.SpawnSequence();
+        spawnController.RunSpawnScript(battleType);
         playerAbilities.PlayerAbilitiesSetup();
         FindCharacters();
         EnemyAbilitiesSequence();
@@ -36,6 +39,7 @@ public class BattleController : MonoBehaviour {
 
     void Setup()
     {
+        levelManager = FindObjectOfType<LevelManager>();
         turnManager = FindObjectOfType<TurnManager>();
         spawnController = FindObjectOfType<SpawnController>();
         enemySpawn1 = GameObject.Find("EnemySpawn1");
@@ -43,7 +47,8 @@ public class BattleController : MonoBehaviour {
         enemySpawn3 = GameObject.Find("EnemySpawn3");
         playerStats = FindObjectOfType<PlayerStats>();
         playerAbilities = FindObjectOfType<PlayerAbilities>();
-
+        battleType = levelManager.battleType;
+        Debug.Log("battleType = " + battleType);
     }
 
     public void FindCharacters()
