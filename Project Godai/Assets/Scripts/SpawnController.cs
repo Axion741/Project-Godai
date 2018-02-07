@@ -119,20 +119,34 @@ public class SpawnController : MonoBehaviour {
     //BattleTypes are for prebaked/story battles. Indexes are based on the order in the prefab folder. Buttons initiating battle should run LoadBattle and input the battleType as a string.
     void DetermineBattletype(string battleType)
     {
-        if (battleType == "goblin party")
+        switch (battleType)
         {
-            enemyCount = 3;
-            enemy1Index = 0;
-            enemy2Index = 0;
-            enemy3Index = 0;
-        }
+            case "goblin party":
+                enemyCount = 3;
+                enemy1Index = 0;
+                enemy2Index = 0;
+                enemy3Index = 0;
 
-        if (battleType == "skeletal smash")
-        {
-            enemyCount = 3;
-            enemy1Index = 1;
-            enemy2Index = 1;
-            enemy3Index = 1;
+                break;
+
+
+            case "skeletal smash":
+        
+                enemyCount = 3;
+                enemy1Index = 1;
+                enemy2Index = 1;
+                enemy3Index = 1;
+
+                break;
+
+            case "speedtest":
+
+                enemyCount = 3;
+                enemy1Index = 1;
+                enemy2Index = 0;
+                enemy3Index = 1;
+
+                break;
         }
     }
 

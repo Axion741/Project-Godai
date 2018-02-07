@@ -32,9 +32,8 @@ public class BattleController : MonoBehaviour {
         playerAbilities.PlayerAbilitiesSetup();
         FindCharacters();
         EnemyAbilitiesSequence();
-        turnManager.FindCharacters();
-        turnManager.FindStats();
-        turnManager.BuildTurnTimeline();
+        turnManager.TurnManagerSetup();
+        turnManager.RunTurn();
     }
 
     void Setup()

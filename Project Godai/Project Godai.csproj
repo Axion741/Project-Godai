@@ -334,7 +334,6 @@
     <Compile Include="Assets\Scripts\ResultsController.cs" />
     <Compile Include="Assets\Scripts\SpawnController.cs" />
     <Compile Include="Assets\Scripts\SplashLoad.cs" />
-    <Compile Include="Assets\Scripts\TurnController.cs" />
     <Compile Include="Assets\Scripts\TurnManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -228,21 +228,11 @@ public class EnemyAbilities : MonoBehaviour {
         }
     }
 
-    public void EnemyAttackController()
-    {
-        if(TurnController.playerTurn == true)
-        {
-            Debug.Log("Not Enemy Turn");
-        }else if (TurnController.playerTurn == false)
-        {
-            EnemyAI();
-        }
-    }
-
+    //TurnChanger is called in an animation event at the end of each attack animation
     private void TurnChanger()
     {
         Debug.Log("ETurnChanger Triggered");
-        TurnController.TurnChange();
+        turnManager.CycleTurn();
         
     }
 

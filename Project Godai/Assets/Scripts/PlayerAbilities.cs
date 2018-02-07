@@ -10,6 +10,7 @@ public class PlayerAbilities : MonoBehaviour
     private Animator eAnim;
     private EnemyAbilities enemyAbilities;
     private ResultsController resultsController;
+    private TurnManager turnManager;
     private SpriteRenderer frontRender;
     private SpriteRenderer backRender;
 
@@ -77,6 +78,7 @@ public class PlayerAbilities : MonoBehaviour
         playerStats = GameObject.FindObjectOfType<PlayerStats>();
         enemyAbilities = enemy.GetComponent<EnemyAbilities>();
         resultsController = FindObjectOfType<ResultsController>();
+        turnManager = FindObjectOfType<TurnManager>();
         GetStats();
         frontRender = auraFront.GetComponent<SpriteRenderer>();
         backRender = auraBack.GetComponent<SpriteRenderer>();
@@ -238,14 +240,15 @@ public class PlayerAbilities : MonoBehaviour
         }
     }
 
+    //TurnChanger is called in an animation event at the end of each attack animation
     private void TurnChanger()
     {
-        TurnController.TurnChange();
+        turnManager.CycleTurn();
     }
 
     private void BlockUI()
     {
-        TurnController.QuickHide();
+        turnManager.QuickHide();
     }
 
     private void MPBoost()
