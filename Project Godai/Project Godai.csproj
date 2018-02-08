@@ -315,6 +315,7 @@
     <Compile Include="Assets\Scripts\AttackSoundController.cs" />
     <Compile Include="Assets\Scripts\BarController.cs" />
     <Compile Include="Assets\Scripts\BattleController.cs" />
+    <Compile Include="Assets\Scripts\ButtonManager.cs" />
     <Compile Include="Assets\Scripts\EnemyAbilities.cs" />
     <Compile Include="Assets\Scripts\EnemyProjectile.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\DefaultEnemyStats.cs" />
@@ -334,6 +335,7 @@
     <Compile Include="Assets\Scripts\ResultsController.cs" />
     <Compile Include="Assets\Scripts\SpawnController.cs" />
     <Compile Include="Assets\Scripts\SplashLoad.cs" />
+    <Compile Include="Assets\Scripts\StatusBarController.cs" />
     <Compile Include="Assets\Scripts\TurnManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

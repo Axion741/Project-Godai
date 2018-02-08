@@ -102,7 +102,7 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-        PlayerAbilities.currentHealth = PlayerAbilities.currentHealth - damage * attackBoost;
+        playerAbilities.currentHealth = playerAbilities.currentHealth - damage * attackBoost;
         pAnim.SetTrigger("isDamaged");
         }
 
@@ -123,7 +123,7 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-            PlayerAbilities.currentHealth = PlayerAbilities.currentHealth - damage * 2.5f * attackBoost;
+            playerAbilities.currentHealth = playerAbilities.currentHealth - damage * 2.5f * attackBoost;
             pAnim.SetTrigger("isDamaged");
         }
     }
@@ -151,7 +151,7 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-            PlayerAbilities.currentHealth = PlayerAbilities.currentHealth - sDamage * 4f * attackBoost;
+            playerAbilities.currentHealth = playerAbilities.currentHealth - sDamage * 4f * attackBoost;
             pAnim.SetTrigger("isDamaged");
         }
     }
@@ -185,7 +185,7 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-            PlayerAbilities.currentHealth = PlayerAbilities.currentHealth - sDamage * 1.5f * attackBoost;
+            playerAbilities.currentHealth = playerAbilities.currentHealth - sDamage * 1.5f * attackBoost;
             pAnim.SetTrigger("isDamaged");
         }
     }

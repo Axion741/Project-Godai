@@ -22,10 +22,10 @@ public class PlayerAbilities : MonoBehaviour
     public GameObject auraBack;
 
 
-    public static float currentHealth;
-    public static float maxHealth;
-    public static float currentMP;
-    public static float maxMP;
+    public float currentHealth;
+    public float maxHealth;
+    public float currentMP;
+    public float maxMP;
     public static float currentPP;
     public static float maxPP;
     public float evasionChance;

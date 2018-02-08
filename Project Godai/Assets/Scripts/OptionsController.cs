@@ -12,7 +12,8 @@ public class OptionsController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        musicManager = GameObject.FindObjectOfType<MusicManager>();
+        levelManager = FindObjectOfType<LevelManager>();
+        musicManager = FindObjectOfType<MusicManager>();
         volumeSlider.value = PlayerPrefsManager.GetMasterVolume();
 	}
 	
