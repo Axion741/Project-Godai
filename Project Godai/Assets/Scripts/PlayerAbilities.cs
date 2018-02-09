@@ -11,6 +11,7 @@ public class PlayerAbilities : MonoBehaviour
     private EnemyAbilities enemyAbilities;
     private ResultsController resultsController;
     private TurnManager turnManager;
+    private BattleController battleController;
     private SpriteRenderer frontRender;
     private SpriteRenderer backRender;
 
@@ -71,14 +72,15 @@ public class PlayerAbilities : MonoBehaviour
 
     public void PlayerAbilitiesSetup()
     {
-        enemySpawn1 = GameObject.Find("EnemySpawn1");
-        enemy = enemySpawn1.transform.GetChild(0).gameObject;
-        eAnim = enemy.GetComponent<Animator>();
-        pAnim = GetComponent<Animator>();
-        playerStats = GameObject.FindObjectOfType<PlayerStats>();
-        enemyAbilities = enemy.GetComponent<EnemyAbilities>();
+        playerStats = FindObjectOfType<PlayerStats>();
         resultsController = FindObjectOfType<ResultsController>();
         turnManager = FindObjectOfType<TurnManager>();
+        battleController = FindObjectOfType<BattleController>();
+        enemySpawn1 = GameObject.Find("EnemySpawn1");
+        enemy = enemySpawn1.transform.GetChild(0).gameObject;
+        enemyAbilities = enemy.GetComponent<EnemyAbilities>();
+        eAnim = enemy.GetComponent<Animator>();
+        pAnim = GetComponent<Animator>();
         GetStats();
         frontRender = auraFront.GetComponent<SpriteRenderer>();
         backRender = auraBack.GetComponent<SpriteRenderer>();

@@ -19,7 +19,11 @@ public class BattleController : MonoBehaviour {
     private GameObject enemy1;
     private GameObject enemy2;
     private GameObject enemy3;
+    private TargetToggler enemy1Target;
+    private TargetToggler enemy2Target;
+    private TargetToggler enemy3Target;
 
+    public GameObject currentTarget;
     public string battleType;
 
 
@@ -29,6 +33,7 @@ public class BattleController : MonoBehaviour {
         Setup();
         playerStats.PlayerStatsSetup();
         spawnController.RunSpawnScript(battleType);
+        TargetSetup();
         playerAbilities.PlayerAbilitiesSetup();
         FindCharacters();
         EnemyAbilitiesSequence();
@@ -85,7 +90,56 @@ public class BattleController : MonoBehaviour {
 
     }
 
+    void TargetSetup()
+    {
+        enemy1Target = enemySpawn1.GetComponentInChildren<TargetToggler>();
+        enemy1Target.TargetTogglerSetup();
+        enemy1Target.ToggleOn();
+        currentTarget = enemy1;
 
+        if (spawnController.enemyCount > 1)
+        {
+            enemy2Target = enemySpawn2.GetComponentInChildren<TargetToggler>();
+            enemy2Target.TargetTogglerSetup();
+        }
+        else enemy2Target = null; enemy3Target = null;
+
+        if (spawnController.enemyCount == 3)
+        {
+            enemy3Target = enemySpawn3.GetComponentInChildren<TargetToggler>();
+            enemy3Target.TargetTogglerSetup();
+
+        }
+        else enemy3Target = null;
+
+    }
+
+    public void TargetSwapper(string targetName)
+    {
+        switch (targetName)
+        {
+            case "EnemySpawn1":
+                enemy1Target.ToggleOn();
+                enemy2Target.ToggleOff();
+                enemy3Target.ToggleOff();
+                currentTarget = enemy1;
+                break;
+
+            case "EnemySpawn2":
+                enemy2Target.ToggleOn();
+                enemy1Target.ToggleOff();
+                enemy3Target.ToggleOff();
+                currentTarget = enemy2;
+                break;
+
+            case "EnemySpawn3":
+                enemy3Target.ToggleOn();
+                enemy1Target.ToggleOff();
+                enemy2Target.ToggleOff();
+                currentTarget = enemy3;
+                break;
+        }
+    }
 
 
 

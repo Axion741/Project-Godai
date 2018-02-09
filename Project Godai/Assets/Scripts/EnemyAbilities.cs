@@ -13,6 +13,8 @@ public class EnemyAbilities : MonoBehaviour {
     private EnemyStatFactory enemyStatFactory;
     private IEnemyStats enemyStats;
 
+
+
     public TurnManager turnManager;
     public PlayerAbilities playerAbilities;
     public GameObject player;
@@ -46,6 +48,7 @@ public class EnemyAbilities : MonoBehaviour {
         playerAbilities = GameObject.FindObjectOfType<PlayerAbilities>();
         resultsController = FindObjectOfType<ResultsController>();
         turnManager = FindObjectOfType<TurnManager>();
+
         //SetupStats();
     }
 	
@@ -80,6 +83,8 @@ public class EnemyAbilities : MonoBehaviour {
         turnSpeed = enemyStats.Speed;
         print("turnspeed = " + turnSpeed);
     }
+
+
 
     private void HitChecker()
     {
@@ -258,5 +263,9 @@ public class EnemyAbilities : MonoBehaviour {
             return;
         }
     }
+
+
+
+
 
 }
