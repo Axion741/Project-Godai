@@ -11,7 +11,6 @@ public class PlayerAbilities : MonoBehaviour
     private EnemyAbilities enemyAbilities;
     private ResultsController resultsController;
     private TurnManager turnManager;
-    private BattleController battleController;
     private SpriteRenderer frontRender;
     private SpriteRenderer backRender;
 
@@ -99,7 +98,6 @@ public class PlayerAbilities : MonoBehaviour
         playerStats = FindObjectOfType<PlayerStats>();
         resultsController = FindObjectOfType<ResultsController>();
         turnManager = FindObjectOfType<TurnManager>();
-        battleController = FindObjectOfType<BattleController>();
         enemySpawn1 = GameObject.Find("EnemySpawn1");
         enemySpawn2 = GameObject.Find("EnemySpawn2");
         enemySpawn3 = GameObject.Find("EnemySpawn3");
