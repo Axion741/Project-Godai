@@ -7,13 +7,12 @@ public class EnemyAbilities : MonoBehaviour {
     private Animator eAnim;
     private Animator pAnim;
     private GameObject pBlast;
-    private ResultsController resultsController;
-    private bool defeated = false;
+
+    public bool defeated = false;
     private string enemyType;
     private EnemyStatFactory enemyStatFactory;
     private IEnemyStats enemyStats;
-
-
+    private BattleController battleController;
 
     public TurnManager turnManager;
     public PlayerAbilities playerAbilities;
@@ -46,7 +45,7 @@ public class EnemyAbilities : MonoBehaviour {
         pAnim = player.GetComponent<Animator>();
         eAnim = GetComponent<Animator>();
         playerAbilities = GameObject.FindObjectOfType<PlayerAbilities>();
-        resultsController = FindObjectOfType<ResultsController>();
+        battleController = FindObjectOfType<BattleController>();
         turnManager = FindObjectOfType<TurnManager>();
 
         //SetupStats();
@@ -252,9 +251,10 @@ public class EnemyAbilities : MonoBehaviour {
             }
             else if (currentHealth <= 0)
             {
-                 defeated = true;
-                 eAnim.SetBool("isDead", true);
-                 resultsController.WinFight();
+                defeated = true;
+                eAnim.SetBool("isDead", true);
+                RemoveSelfFromTimeline();
+                battleController.AutoTargetSwap();
             }
             
         }
@@ -264,7 +264,23 @@ public class EnemyAbilities : MonoBehaviour {
         }
     }
 
+    private void RemoveSelfFromTimeline()
+    {
+        if(transform.root.gameObject.name == "EnemySpawn1")
+        {
+            turnManager.RemoveFromList("enemy1");
+        }
 
+        if (transform.root.gameObject.name == "EnemySpawn2")
+        {
+            turnManager.RemoveFromList("enemy2");
+        }
+
+        if (transform.root.gameObject.name == "EnemySpawn3")
+        {
+            turnManager.RemoveFromList("enemy3");
+        }
+    }
 
 
 

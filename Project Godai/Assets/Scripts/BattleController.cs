@@ -12,6 +12,7 @@ public class BattleController : MonoBehaviour {
     private EnemyAbilities enemyAbilities3;
     private PlayerStats playerStats;
     private PlayerAbilities playerAbilities;
+    private ResultsController resultsController;
 
     private GameObject enemySpawn1;
     private GameObject enemySpawn2;
@@ -23,7 +24,11 @@ public class BattleController : MonoBehaviour {
     private TargetToggler enemy2Target;
     private TargetToggler enemy3Target;
 
-    public GameObject currentTarget;
+    public float enemy1XP;
+    public float enemy2XP;
+    public float enemy3XP;
+
+    private bool victorious = false;
     public string battleType;
 
 
@@ -41,6 +46,11 @@ public class BattleController : MonoBehaviour {
         turnManager.RunTurn();
     }
 
+    private void Update()
+    {
+        CheckVictory();
+    }
+
     void Setup()
     {
         levelManager = FindObjectOfType<LevelManager>();
@@ -51,6 +61,7 @@ public class BattleController : MonoBehaviour {
         enemySpawn3 = GameObject.Find("EnemySpawn3");
         playerStats = FindObjectOfType<PlayerStats>();
         playerAbilities = FindObjectOfType<PlayerAbilities>();
+        resultsController = FindObjectOfType<ResultsController>();
         battleType = levelManager.battleType;
         Debug.Log("battleType = " + battleType);
     }
@@ -74,17 +85,20 @@ public class BattleController : MonoBehaviour {
     {
         enemyAbilities1.GrabStats();
         enemyAbilities1.SetupStats();
+        enemy1XP = enemyAbilities1.experienceValue;
 
         if (spawnController.enemyCount > 1)
         {
             enemyAbilities2.GrabStats();
             enemyAbilities2.SetupStats();
+            enemy2XP = enemyAbilities2.experienceValue;
         }
         else return;
         if (spawnController.enemyCount == 3)
         {
             enemyAbilities3.GrabStats();
             enemyAbilities3.SetupStats();
+            enemy3XP = enemyAbilities3.experienceValue;
         }
         else return;
 
@@ -95,7 +109,7 @@ public class BattleController : MonoBehaviour {
         enemy1Target = enemySpawn1.GetComponentInChildren<TargetToggler>();
         enemy1Target.TargetTogglerSetup();
         enemy1Target.ToggleOn();
-        currentTarget = enemy1;
+
 
         if (spawnController.enemyCount > 1)
         {
@@ -119,29 +133,93 @@ public class BattleController : MonoBehaviour {
         switch (targetName)
         {
             case "EnemySpawn1":
-                enemy1Target.ToggleOn();
-                enemy2Target.ToggleOff();
-                enemy3Target.ToggleOff();
-                currentTarget = enemy1;
+                if (enemyAbilities1.defeated == false)
+                {
+                    enemy1Target.ToggleOn();
+                    if (spawnController.enemyCount > 1)
+                    {
+                    enemy2Target.ToggleOff();
+                     }
+                    if (spawnController.enemyCount == 3)
+                    {
+                    enemy3Target.ToggleOff();
+                    }
+                    playerAbilities.ChangeTarget("enemy1");
+                }
                 break;
 
             case "EnemySpawn2":
-                enemy2Target.ToggleOn();
-                enemy1Target.ToggleOff();
-                enemy3Target.ToggleOff();
-                currentTarget = enemy2;
+                if (enemyAbilities2.defeated == false)
+                {
+                    enemy2Target.ToggleOn();
+                    enemy1Target.ToggleOff();
+                    if (spawnController.enemyCount == 3)
+                    {
+                        enemy3Target.ToggleOff();
+                    }
+                    playerAbilities.ChangeTarget("enemy2");
+                }
                 break;
 
             case "EnemySpawn3":
-                enemy3Target.ToggleOn();
-                enemy1Target.ToggleOff();
-                enemy2Target.ToggleOff();
-                currentTarget = enemy3;
+                if (enemyAbilities3.defeated == false)
+                {
+                    enemy3Target.ToggleOn();
+                    enemy1Target.ToggleOff();
+                    enemy2Target.ToggleOff();
+                    playerAbilities.ChangeTarget("enemy3");
+                }
                 break;
         }
     }
 
+    public void AutoTargetSwap()
+    {
+        if (enemyAbilities1.defeated != true)
+        {
+            TargetSwapper("EnemySpawn1");
+        }
+        else if (enemyAbilities2.defeated != true)
+        {
+            TargetSwapper("EnemySpawn2");
+        }
+        else if (enemyAbilities3.defeated != true)
+        {
+            TargetSwapper("EnemySpawn3");
+        }
+    }
 
+    private void CheckVictory()
+    {
+
+        switch (spawnController.enemyCount)
+        {
+            case 1:
+                if (victorious == false & enemyAbilities1.defeated == true)
+                {
+                    resultsController.WinFight();
+                    victorious = true;
+                }
+                break;
+
+            case 2:
+                if (victorious == false & enemyAbilities1.defeated == true & enemyAbilities2.defeated == true)
+                {
+                    resultsController.WinFight();
+                    victorious = true;
+                }
+                break;
+
+            case 3:
+                if (victorious == false & enemyAbilities1.defeated == true & enemyAbilities2.defeated == true & enemyAbilities3.defeated == true)
+                {
+                    resultsController.WinFight();
+                    victorious = true;
+                }
+                break;
+        }
+
+    }
 
 
 

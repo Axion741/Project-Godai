@@ -17,6 +17,8 @@ public class PlayerAbilities : MonoBehaviour
 
     public PlayerStats playerStats;
     public GameObject enemySpawn1;
+    public GameObject enemySpawn2;
+    public GameObject enemySpawn3;
     public GameObject enemy;
     public GameObject blast;
     public GameObject auraFront;
@@ -68,7 +70,29 @@ public class PlayerAbilities : MonoBehaviour
         }
     }
 
-    //Stat Control
+    public void ChangeTarget(string targetCharacter)
+    {
+        switch (targetCharacter)
+        {
+            case "enemy1":
+                enemy = enemySpawn1.transform.GetChild(0).gameObject;
+                enemyAbilities = enemy.GetComponent<EnemyAbilities>();
+                eAnim = enemy.GetComponent<Animator>();
+                break;
+
+            case "enemy2":
+                enemy = enemySpawn2.transform.GetChild(0).gameObject;
+                enemyAbilities = enemy.GetComponent<EnemyAbilities>();
+                eAnim = enemy.GetComponent<Animator>();
+                break;
+
+            case "enemy3":
+                enemy = enemySpawn3.transform.GetChild(0).gameObject;
+                enemyAbilities = enemy.GetComponent<EnemyAbilities>();
+                eAnim = enemy.GetComponent<Animator>();
+                break;
+        }
+    }
 
     public void PlayerAbilitiesSetup()
     {
@@ -77,6 +101,8 @@ public class PlayerAbilities : MonoBehaviour
         turnManager = FindObjectOfType<TurnManager>();
         battleController = FindObjectOfType<BattleController>();
         enemySpawn1 = GameObject.Find("EnemySpawn1");
+        enemySpawn2 = GameObject.Find("EnemySpawn2");
+        enemySpawn3 = GameObject.Find("EnemySpawn3");
         enemy = enemySpawn1.transform.GetChild(0).gameObject;
         enemyAbilities = enemy.GetComponent<EnemyAbilities>();
         eAnim = enemy.GetComponent<Animator>();
@@ -86,6 +112,7 @@ public class PlayerAbilities : MonoBehaviour
         backRender = auraBack.GetComponent<SpriteRenderer>();
     }
 
+    //Stat Control
     public void GetStats()
     {
         maxHealth = playerStats.maxHealth;

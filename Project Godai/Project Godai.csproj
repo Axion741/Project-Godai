@@ -335,6 +335,7 @@
     <Compile Include="Assets\Scripts\ResultsController.cs" />
     <Compile Include="Assets\Scripts\SpawnController.cs" />
     <Compile Include="Assets\Scripts\SplashLoad.cs" />
+    <Compile Include="Assets\Scripts\StatScreenController.cs" />
     <Compile Include="Assets\Scripts\StatusBarController.cs" />
     <Compile Include="Assets\Scripts\TargetToggler.cs" />
     <Compile Include="Assets\Scripts\TurnManager.cs" />

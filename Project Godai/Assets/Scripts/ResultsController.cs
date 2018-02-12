@@ -10,15 +10,15 @@ public class ResultsController : MonoBehaviour {
     public Text pointText;
     public Text pointMessage;
     private PlayerStats playerStats;
-    private EnemyAbilities enemyAbilities;
-
+    private BattleController battleController;
+    private float totalXP;
 
 	// Use this for initialization
 	void Start () {
         resultsCanvas = resultsCanvas.GetComponent<Canvas>();
         resultsCanvas.enabled = false;
         playerStats = FindObjectOfType<PlayerStats>();
-        enemyAbilities = FindObjectOfType<EnemyAbilities>();
+        battleController = FindObjectOfType<BattleController>();
 
 	}
 	
@@ -36,7 +36,8 @@ public class ResultsController : MonoBehaviour {
     {
         titleText.text = "Victory!";
         ResultCanvasEnabler();
-        playerStats.experiencePoints = playerStats.experiencePoints + enemyAbilities.experienceValue;
+        totalXP = battleController.enemy1XP + battleController.enemy2XP + battleController.enemy3XP;
+        playerStats.experiencePoints = playerStats.experiencePoints + totalXP;
         playerStats.SetExperience();
 
     }

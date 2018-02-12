@@ -214,7 +214,10 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
-
+    public void RemoveFromList(string character)
+    {
+        turnTimeline.Remove(character);
+    }
 
 
     public void QuickHide()
