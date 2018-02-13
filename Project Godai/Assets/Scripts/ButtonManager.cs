@@ -5,6 +5,7 @@ using UnityEngine;
 public class ButtonManager : MonoBehaviour {
 
     private LevelManager levelManager;
+    
 
 	// Use this for initialization
 	void Start () {
