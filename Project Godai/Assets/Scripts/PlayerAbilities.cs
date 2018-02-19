@@ -242,6 +242,7 @@ public class PlayerAbilities : MonoBehaviour
     {
         pAnim.SetTrigger("isPowerUp");
         MPBoost();
+        HPBoost();
         LimitBreak();
         attackBoost = 1 + (currentPP / 10);
         //TurnController.TurnChange();
@@ -287,6 +288,19 @@ public class PlayerAbilities : MonoBehaviour
         else if (currentMP >= maxMP - 20)
         {
             currentMP = maxMP;
+        }
+
+    }
+
+    private void HPBoost()
+    {
+        if (currentHealth != maxHealth)
+        {
+            currentHealth += (sDamage*2);
+        }
+        else if (currentHealth >= maxHealth - (sDamage*2))
+        {
+            currentHealth = maxHealth;
         }
 
     }
