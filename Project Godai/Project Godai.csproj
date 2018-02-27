@@ -317,9 +317,9 @@
     <Compile Include="Assets\Scripts\BattleButtonController.cs" />
     <Compile Include="Assets\Scripts\BattleController.cs" />
     <Compile Include="Assets\Scripts\ButtonManager.cs" />
-    <Compile Include="Assets\Scripts\EnemyAbilities.cs" />
     <Compile Include="Assets\Scripts\EnemyProjectile.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\DefaultEnemyStats.cs" />
+    <Compile Include="Assets\Scripts\EnemyStatsScripts\EnemyAbilities.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\EnemyStatFactory.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\GoblinStats.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\IEnemyStats.cs" />
@@ -329,10 +329,13 @@
     <Compile Include="Assets\Scripts\MusicManager.cs" />
     <Compile Include="Assets\Scripts\OptionsController.cs" />
     <Compile Include="Assets\Scripts\PanelFader.cs" />
-    <Compile Include="Assets\Scripts\PlayerAbilities.cs" />
     <Compile Include="Assets\Scripts\PlayerPrefsManager.cs" />
     <Compile Include="Assets\Scripts\PlayerProjectile.cs" />
-    <Compile Include="Assets\Scripts\PlayerStats.cs" />
+    <Compile Include="Assets\Scripts\PlayerStatsScripts\IPlayerStats.cs" />
+    <Compile Include="Assets\Scripts\PlayerStatsScripts\PlayerAbilities.cs" />
+    <Compile Include="Assets\Scripts\PlayerStatsScripts\PlayerStats.cs" />
+    <Compile Include="Assets\Scripts\PlayerStatsScripts\PlayerStats2.cs" />
+    <Compile Include="Assets\Scripts\PlayerStatsScripts\PlayerStats3.cs" />
     <Compile Include="Assets\Scripts\ResultsController.cs" />
     <Compile Include="Assets\Scripts\SpawnController.cs" />
     <Compile Include="Assets\Scripts\SplashLoad.cs" />

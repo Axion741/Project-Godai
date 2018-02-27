@@ -11,15 +11,19 @@ public class BattleController : MonoBehaviour {
     private EnemyAbilities enemyAbilities2;
     private EnemyAbilities enemyAbilities3;
     private PlayerStats playerStats;
+    private PlayerStats2 playerStats2;
+    private PlayerStats3 playerStats3;
     private PlayerAbilities playerAbilities;
+    private PlayerAbilities playerAbilities2;
+    private PlayerAbilities playerAbilities3;
     private ResultsController resultsController;
 
+    private GameObject player1;
+    private GameObject playerSpawn2;
+    private GameObject playerSpawn3;
     private GameObject enemySpawn1;
     private GameObject enemySpawn2;
     private GameObject enemySpawn3;
-    private GameObject enemy1;
-    private GameObject enemy2;
-    private GameObject enemy3;
     private TargetToggler enemy1Target;
     private TargetToggler enemy2Target;
     private TargetToggler enemy3Target;
@@ -36,11 +40,10 @@ public class BattleController : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         Setup();
-        playerStats.PlayerStatsSetup();
         spawnController.RunSpawnScript(battleType);
         TargetSetup();
-        playerAbilities.PlayerAbilitiesSetup();
         FindCharacters();
+        PlayerAbilitiesSequence();
         EnemyAbilitiesSequence();
         turnManager.TurnManagerSetup();
         turnManager.RunTurn();
@@ -56,11 +59,15 @@ public class BattleController : MonoBehaviour {
         levelManager = FindObjectOfType<LevelManager>();
         turnManager = FindObjectOfType<TurnManager>();
         spawnController = FindObjectOfType<SpawnController>();
+        player1 = GameObject.Find("PlayerCharacter");
+        playerSpawn2 = GameObject.Find("PlayerSpawn2");
+        playerSpawn3 = GameObject.Find("PlayerSpawn3");
         enemySpawn1 = GameObject.Find("EnemySpawn1");
         enemySpawn2 = GameObject.Find("EnemySpawn2");
         enemySpawn3 = GameObject.Find("EnemySpawn3");
-        playerStats = FindObjectOfType<PlayerStats>();
-        playerAbilities = FindObjectOfType<PlayerAbilities>();
+        playerStats = player1.GetComponent<PlayerStats>();
+        playerStats2 = playerSpawn2.GetComponentInChildren<PlayerStats2>();
+        playerStats3 = playerSpawn3.GetComponentInChildren<PlayerStats3>();
         resultsController = FindObjectOfType<ResultsController>();
         battleType = levelManager.battleType;
         Debug.Log("battleType = " + battleType);
@@ -79,6 +86,22 @@ public class BattleController : MonoBehaviour {
             enemyAbilities3 = enemySpawn3.GetComponentInChildren<EnemyAbilities>();
         }
         else enemyAbilities3 = null;
+
+        playerAbilities = player1.GetComponent<PlayerAbilities>();
+        playerAbilities2 = playerSpawn2.GetComponentInChildren<PlayerAbilities>();
+        playerAbilities3 = playerSpawn3.GetComponentInChildren<PlayerAbilities>();
+    }
+
+    void PlayerAbilitiesSequence()
+    {
+
+        playerStats.PlayerStatsSetup();
+        playerStats2.PlayerStatsSetup();
+        playerStats3.PlayerStatsSetup();
+        playerAbilities.PlayerAbilitiesSetup();
+        playerAbilities2.PlayerAbilitiesSetup();
+        playerAbilities3.PlayerAbilitiesSetup();
+
     }
 
     void EnemyAbilitiesSequence()
