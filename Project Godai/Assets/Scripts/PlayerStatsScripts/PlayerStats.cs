@@ -6,10 +6,14 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
 
     private ResultsController resController;
 
+    public int player2recruited = 0;
+    public int player3recruited = 0;
+
     private int baseStrength = 10;
     private int baseSpeed = 10;
     private int baseEndurance = 10;
     private int baseSpirit = 10;
+
     public int playerLevel;
 
     public int currentStrength;
@@ -239,6 +243,41 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         modSpirit = PlayerPrefsManager.GetSpiritMod();
         experiencePoints = PlayerPrefsManager.GetExperiencePoints();
         statPoints = PlayerPrefsManager.GetStatPoints();
+        player2recruited = PlayerPrefsManager.GetPlayer2Recruited();
+        player3recruited = PlayerPrefsManager.GetPlayer3Recruited();
         DetermineLevel();            
+    }
+
+    public void RecruitPlayer2()
+    {
+        if (player2recruited == 0)
+        {
+            player2recruited = 1;
+            PlayerPrefsManager.SetPlayer2Recruited(player2recruited);
+            print("Player 2 recruited");
+        }
+        else if (player2recruited == 1)
+        {
+            player2recruited = 0;
+            PlayerPrefsManager.SetPlayer2Recruited(player2recruited);
+            print("Player 2 left");
+        }
+    }
+
+    public void RecruitPlayer3()
+    {
+        if (player3recruited == 0)
+        {
+            player3recruited = 1;
+            PlayerPrefsManager.SetPlayer3Recruited(player3recruited);
+            print("Player 3 recruited");
+        }
+        else if (player3recruited == 1)
+        {
+            player3recruited = 0;
+            PlayerPrefsManager.SetPlayer3Recruited(player3recruited);
+            print("Player 3 left");
+        }
+
     }
 }

@@ -17,7 +17,9 @@ public class PlayerPrefsManager : MonoBehaviour {
     const string STATPOINTS = "stat_points";
     const string BREAKPOINT = "break_point";
     const string BREAKCHANCE = "break_chance";
-   
+    const string PLAYER2RECRUITED = "player_2_recruited";
+    const string PLAYER3RECRUITED = "player_3_recruited";
+
 
     public static void SetMasterVolume (float volume)
     {
@@ -168,5 +170,25 @@ public class PlayerPrefsManager : MonoBehaviour {
     public static int GetBreakChance()
     {
         return PlayerPrefs.GetInt(BREAKCHANCE);
+    }
+
+    public static void SetPlayer2Recruited(int player2Recruited)
+    {
+        PlayerPrefs.SetInt(PLAYER2RECRUITED, player2Recruited);
+    }
+
+    public static int GetPlayer2Recruited()
+    {
+        return PlayerPrefs.GetInt(PLAYER2RECRUITED);
+    }
+
+    public static void SetPlayer3Recruited(int player3Recruited)
+    {
+        PlayerPrefs.SetInt(PLAYER3RECRUITED, player3Recruited);
+    }
+
+    public static int GetPlayer3Recruited()
+    {
+        return PlayerPrefs.GetInt(PLAYER3RECRUITED);
     }
 }
