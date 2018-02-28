@@ -41,9 +41,10 @@ public class BattleController : MonoBehaviour {
     void Awake () {
         Setup();
         spawnController.RunSpawnScript(battleType);
+        spawnController.SpawnAllies(playerStats.player2recruited, playerStats.player3recruited);
         TargetSetup();
+        FindAlliedCharacters();
         FindCharacters();
-        PlayerAbilitiesSequence();
         EnemyAbilitiesSequence();
         turnManager.TurnManagerSetup();
         turnManager.RunTurn();
@@ -58,17 +59,16 @@ public class BattleController : MonoBehaviour {
     {
         levelManager = FindObjectOfType<LevelManager>();
         turnManager = FindObjectOfType<TurnManager>();
+        resultsController = FindObjectOfType<ResultsController>();
         spawnController = FindObjectOfType<SpawnController>();
         player1 = GameObject.Find("PlayerCharacter");
+        playerStats = player1.GetComponent<PlayerStats>();
+        playerStats.PlayerStatsSetup();
         playerSpawn2 = GameObject.Find("PlayerSpawn2");
         playerSpawn3 = GameObject.Find("PlayerSpawn3");
         enemySpawn1 = GameObject.Find("EnemySpawn1");
         enemySpawn2 = GameObject.Find("EnemySpawn2");
         enemySpawn3 = GameObject.Find("EnemySpawn3");
-        playerStats = player1.GetComponent<PlayerStats>();
-        playerStats2 = playerSpawn2.GetComponentInChildren<PlayerStats2>();
-        playerStats3 = playerSpawn3.GetComponentInChildren<PlayerStats3>();
-        resultsController = FindObjectOfType<ResultsController>();
         battleType = levelManager.battleType;
         Debug.Log("battleType = " + battleType);
     }
@@ -87,22 +87,32 @@ public class BattleController : MonoBehaviour {
         }
         else enemyAbilities3 = null;
 
-        playerAbilities = player1.GetComponent<PlayerAbilities>();
-        playerAbilities2 = playerSpawn2.GetComponentInChildren<PlayerAbilities>();
-        playerAbilities3 = playerSpawn3.GetComponentInChildren<PlayerAbilities>();
+
     }
 
-    void PlayerAbilitiesSequence()
+    public void FindAlliedCharacters()
     {
-
-        playerStats.PlayerStatsSetup();
-        playerStats2.PlayerStatsSetup();
-        playerStats3.PlayerStatsSetup();
+        playerAbilities = player1.GetComponent<PlayerAbilities>();
         playerAbilities.PlayerAbilitiesSetup();
+
+        if(playerStats.player2recruited == 1)
+        {
+        playerStats2 = playerSpawn2.GetComponentInChildren<PlayerStats2>();
+        playerAbilities2 = playerSpawn2.GetComponentInChildren<PlayerAbilities>();
+        playerStats2.PlayerStatsSetup();
         playerAbilities2.PlayerAbilitiesSetup();
+        }
+
+        if(playerStats.player3recruited == 1)
+        {
+        playerStats3 = playerSpawn3.GetComponentInChildren<PlayerStats3>();
+        playerAbilities3 = playerSpawn3.GetComponentInChildren<PlayerAbilities>();
+        playerStats3.PlayerStatsSetup();
         playerAbilities3.PlayerAbilitiesSetup();
+        }
 
     }
+
 
     void EnemyAbilitiesSequence()
     {

@@ -11,6 +11,10 @@ public class SpawnController : MonoBehaviour {
     public GameObject enemy1;
     public GameObject enemy2;
     public GameObject enemy3;
+    public GameObject player2;
+    public GameObject player3;
+    public GameObject playerSpawn2;
+    public GameObject playerSpawn3;
     private int enemy1Index;
     private int enemy2Index;
     private int enemy3Index;
@@ -26,6 +30,23 @@ public class SpawnController : MonoBehaviour {
 	void Update () {
 
 	}
+
+    public void SpawnAllies(int player2Recruited, int player3Recruited)
+    {
+        playerSpawn2 = GameObject.Find("PlayerSpawn2");
+        playerSpawn3 = GameObject.Find("PlayerSpawn3");
+        player2 = (GameObject)Resources.Load("PlayerCharacter2");
+        player3 = (GameObject)Resources.Load("PlayerCharacter3");
+
+        if (player2Recruited == 1)
+        {
+            GameObject PlayerCharacter2 = Instantiate(player2, playerSpawn2.transform.position, Quaternion.identity, playerSpawn2.transform);
+        }
+        if(player3Recruited == 1)
+        {
+            GameObject PlayerCharacter3 = Instantiate(player3, playerSpawn3.transform.position, Quaternion.identity, playerSpawn3.transform);
+        }
+    }
 
     public void RunSpawnScript(string battleType)
     {
@@ -60,6 +81,8 @@ public class SpawnController : MonoBehaviour {
         enemySpawn1 = GameObject.Find("EnemySpawn1");
         enemySpawn2 = GameObject.Find("EnemySpawn2");
         enemySpawn3 = GameObject.Find("EnemySpawn3");
+
+
     }
 
     void AssignRandomSpawns()
