@@ -58,6 +58,7 @@ public class PlayerAbilities : MonoBehaviour
         else if (currentHealth <= 0)
         {
             pAnim.SetBool("isDead", true);
+            RemoveSelfFromTimeline();
             //resultsController.LoseFight();
             defeated = true;
         }
@@ -134,7 +135,7 @@ public class PlayerAbilities : MonoBehaviour
     private void HitChecker()
     {
         hitValue = Random.Range(0, 100);
-        enemyDodge = EnemyAbilities.evasionChance;
+        enemyDodge = enemyAbilities.evasionChance;
     }
 
     //Combat Methods
@@ -211,13 +212,14 @@ public class PlayerAbilities : MonoBehaviour
 
     public void BlastBarrageAttack()
     {
+
         if (currentMP < 40)
         {
             Debug.Log("MP less than 40");
         }
         else
         {
-
+            print("Barrage Away");
             pAnim.SetTrigger("isBarrage");
         }
     }
@@ -262,6 +264,7 @@ public class PlayerAbilities : MonoBehaviour
     private void BlockUI()
     {
         turnManager.QuickHide();
+        print("UI Blocked");
     }
 
     private void MPBoost()
@@ -313,4 +316,22 @@ public class PlayerAbilities : MonoBehaviour
         tMultiplier = 4;
     }
 
+
+    private void RemoveSelfFromTimeline()
+    {
+        if (transform.root.gameObject.name == "PlayerCharacter")
+        {
+            turnManager.RemoveFromList("player1");
+        }
+
+        if (transform.root.gameObject.name == "PlayerSpawn2")
+        {
+            turnManager.RemoveFromList("player2");
+        }
+
+        if (transform.root.gameObject.name == "PlayerSpawn3")
+        {
+            turnManager.RemoveFromList("player3");
+        }
+    }
 }

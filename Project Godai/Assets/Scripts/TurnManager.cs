@@ -6,16 +6,21 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour {
 
-    private enum TurnStates { player1Turn, enemy1Turn, enemy2Turn, enemy3Turn };
+    private enum TurnStates { player1Turn, player2Turn, player3Turn, enemy1Turn, enemy2Turn, enemy3Turn };
     private TurnStates currentState;
     private SpawnController spawnController;
-
+    private BattleController battleController;
+    public BattleButtonController battleButtonController;
 
     private string currentActiveCharacter;
     private string storedCharacter;
 
 
     public GameObject player1;
+    public GameObject player2;
+    public GameObject player2Spawn;
+    public GameObject player3;
+    public GameObject player3Spawn;
     public GameObject enemy1;
     public GameObject enemySpawn1;
     public GameObject enemy2;
@@ -29,12 +34,16 @@ public class TurnManager : MonoBehaviour {
 
 
     public PlayerStats playerStats1;
+    public PlayerStats2 playerStats2;
+    public PlayerStats3 playerStats3;
     public EnemyAbilities enemyAbilities1;
     public EnemyAbilities enemyAbilities2;
     public EnemyAbilities enemyAbilities3;
 
 
     public int player1Speed;
+    public int player2Speed;
+    public int player3Speed;
     public int enemy1Speed;
     public int enemy2Speed;
     public int enemy3Speed;
@@ -44,7 +53,7 @@ public class TurnManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        currentState = TurnStates.enemy3Turn;
+
     }
 	
 	// Update is called once per frame
@@ -55,6 +64,7 @@ public class TurnManager : MonoBehaviour {
     public void TurnManagerSetup()
     {
         ControlBlocker = GameObject.Find("Control Blocker");
+        battleButtonController = FindObjectOfType<BattleButtonController>();
         FindCharacters();
         FindSpeed();
         BuildTurnTimeline();
@@ -80,9 +90,12 @@ public class TurnManager : MonoBehaviour {
     {
         spawnController = FindObjectOfType<SpawnController>();
         player1 = GameObject.Find("PlayerCharacter");
+        player2Spawn = GameObject.Find("PlayerSpawn2");
+        player3Spawn = GameObject.Find("PlayerSpawn3");
         enemySpawn1 = GameObject.Find("EnemySpawn1");
         enemySpawn2 = GameObject.Find("EnemySpawn2");
         enemySpawn3 = GameObject.Find("EnemySpawn3");
+        battleController = FindObjectOfType<BattleController>();
 
             enemy1 = enemySpawn1.transform.GetChild(0).gameObject;
         
@@ -97,6 +110,18 @@ public class TurnManager : MonoBehaviour {
             enemy3 = enemySpawn3.transform.GetChild(0).gameObject;
         }
         else enemy3 = null;
+
+        if (battleController.playerCount > 1)
+        {
+            player2 = player2Spawn.transform.GetChild(0).gameObject;
+        }
+        else player2 = null;
+
+        if (battleController.playerCount == 3)
+        {
+            player3 = player3Spawn.transform.GetChild(0).gameObject;
+        }
+        else player3 = null;
     }
   
     public void FindSpeed()
@@ -123,6 +148,18 @@ public class TurnManager : MonoBehaviour {
             enemyAbilities3 = enemy3.GetComponent<EnemyAbilities>();
             enemy3Speed = enemyAbilities3.turnSpeed;
         }
+
+        if (player2 != null)
+        {
+            playerStats2 = player2.GetComponent<PlayerStats2>();
+            player2Speed = playerStats2.currentSpeed;
+        }
+
+        if (player3 != null)
+        {
+            playerStats3 = player3.GetComponent<PlayerStats3>();
+            player3Speed = playerStats3.currentSpeed;
+        }
     }
 
     public void BuildTurnTimeline()
@@ -144,6 +181,15 @@ public class TurnManager : MonoBehaviour {
             turnDict.Add("enemy3", enemy3Speed);
         }
 
+        if (battleController.playerCount > 1)
+        {
+            turnDict.Add("player2", player2Speed);
+        }
+
+        if (battleController.playerCount == 3)
+        {
+            turnDict.Add("player3", player3Speed);
+        }
 
         turnDict = turnDict.OrderByDescending(x => x.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
 
@@ -171,6 +217,14 @@ public class TurnManager : MonoBehaviour {
                 currentState = TurnStates.player1Turn;
                 break;
 
+            case ("player2"):
+                currentState = TurnStates.player2Turn;
+                break;
+
+            case ("player3"):
+                currentState = TurnStates.player3Turn;
+                break;
+
             case ("enemy1"):
                 currentState = TurnStates.enemy1Turn;
                 break;
@@ -191,6 +245,19 @@ public class TurnManager : MonoBehaviour {
         {
             case (TurnStates.player1Turn):
                 print("player1's turn");
+                battleButtonController.SetActiveCharacter(1);
+                ControlBlocker.SetActive(false);
+                break;
+
+            case (TurnStates.player2Turn):
+                print("player2's turn");
+                battleButtonController.SetActiveCharacter(2);
+                ControlBlocker.SetActive(false);
+                break;
+
+            case (TurnStates.player3Turn):
+                print("player3's turn");
+                battleButtonController.SetActiveCharacter(3);
                 ControlBlocker.SetActive(false);
                 break;
 

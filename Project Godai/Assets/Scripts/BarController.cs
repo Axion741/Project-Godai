@@ -33,8 +33,8 @@ public class BarController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         EXPBarWin();
-        Debug.Log("AbExp = " + playerStats.experiencePoints);;
-        Debug.Log("AbThresh = " + playerStats.experienceThreshold);
+        //Debug.Log("AbExp = " + playerStats.experiencePoints);;
+        //Debug.Log("AbThresh = " + playerStats.experienceThreshold);
     }
 
 
@@ -43,7 +43,7 @@ public class BarController : MonoBehaviour {
     public void EXPBarWin()
     {
         xpFill = playerStats.experiencePoints / playerStats.experienceThreshold;
-        Debug.Log("xpfv = " + xpFill);
+        //Debug.Log("xpfv = " + xpFill);
         expBar.fillAmount = Mathf.Lerp(expBar.fillAmount, xpFill, Time.deltaTime * barSpeed);
     }
 

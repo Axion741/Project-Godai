@@ -29,7 +29,7 @@ public class EnemyAbilities : MonoBehaviour {
     float hitValue;
     float playerDodge;
     
-    public static float evasionChance;
+    public float evasionChance;
     public float currentHealth;
     public float maxHealth;
     public float currentMP;

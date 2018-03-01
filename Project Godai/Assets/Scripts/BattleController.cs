@@ -17,6 +17,7 @@ public class BattleController : MonoBehaviour {
     private PlayerAbilities playerAbilities2;
     private PlayerAbilities playerAbilities3;
     private ResultsController resultsController;
+    private BattleButtonController battleButtonController;
 
     private GameObject player1;
     private GameObject playerSpawn2;
@@ -48,6 +49,7 @@ public class BattleController : MonoBehaviour {
         FindAlliedCharacters();
         FindCharacters();
         EnemyAbilitiesSequence();
+        battleButtonController.Setup();
         turnManager.TurnManagerSetup();
         turnManager.RunTurn();
     }
@@ -64,6 +66,7 @@ public class BattleController : MonoBehaviour {
         turnManager = FindObjectOfType<TurnManager>();
         resultsController = FindObjectOfType<ResultsController>();
         spawnController = FindObjectOfType<SpawnController>();
+        battleButtonController = FindObjectOfType<BattleButtonController>();
         player1 = GameObject.Find("PlayerCharacter");
         playerStats = player1.GetComponent<PlayerStats>();
         playerStats.PlayerStatsSetup();
@@ -184,6 +187,8 @@ public class BattleController : MonoBehaviour {
                     enemy3Target.ToggleOff();
                     }
                     playerAbilities.ChangeTarget("enemy1");
+                    playerAbilities2.ChangeTarget("enemy1");
+                    playerAbilities3.ChangeTarget("enemy1");
                 }
                 break;
 
@@ -197,6 +202,8 @@ public class BattleController : MonoBehaviour {
                         enemy3Target.ToggleOff();
                     }
                     playerAbilities.ChangeTarget("enemy2");
+                    playerAbilities2.ChangeTarget("enemy2");
+                    playerAbilities3.ChangeTarget("enemy2");
                 }
                 break;
 
@@ -207,6 +214,8 @@ public class BattleController : MonoBehaviour {
                     enemy1Target.ToggleOff();
                     enemy2Target.ToggleOff();
                     playerAbilities.ChangeTarget("enemy3");
+                    playerAbilities2.ChangeTarget("enemy3");
+                    playerAbilities3.ChangeTarget("enemy3");
                 }
                 break;
         }
