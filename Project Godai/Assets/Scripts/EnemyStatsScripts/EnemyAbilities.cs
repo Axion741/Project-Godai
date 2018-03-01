@@ -6,6 +6,8 @@ public class EnemyAbilities : MonoBehaviour {
 
     private Animator eAnim;
     private Animator pAnim;
+    private Animator pAnim2;
+    private Animator pAnim3;
     private GameObject pBlast;
 
     public bool defeated = false;
@@ -17,6 +19,8 @@ public class EnemyAbilities : MonoBehaviour {
     public TurnManager turnManager;
     public PlayerAbilities playerAbilities;
     public GameObject player;
+    private GameObject player2Spawn;
+    private GameObject player3Spawn;
     public GameObject blast;
    
     int max = 100;
@@ -32,6 +36,7 @@ public class EnemyAbilities : MonoBehaviour {
     public float maxMP;
     public float experienceValue;
     public int turnSpeed;
+    public int targetChoice;
 
     private float damage;
     private float sDamage;
@@ -41,13 +46,10 @@ public class EnemyAbilities : MonoBehaviour {
     // Use this for initialization
     void Start () {
        // GrabStats();
-        player = GameObject.Find("PlayerCharacter");
-        pAnim = player.GetComponent<Animator>();
         eAnim = GetComponent<Animator>();
-        playerAbilities = GameObject.FindObjectOfType<PlayerAbilities>();
+        SetupTargets();
         battleController = FindObjectOfType<BattleController>();
         turnManager = FindObjectOfType<TurnManager>();
-
         //SetupStats();
     }
 	
@@ -83,7 +85,47 @@ public class EnemyAbilities : MonoBehaviour {
         print("turnspeed = " + turnSpeed);
     }
 
+    public void SetupTargets()
+    {
+        player = GameObject.Find("PlayerCharacter");
+        player2Spawn = GameObject.Find("PlayerSpawn2");
+        player3Spawn = GameObject.Find("PlayerSpawn3");
+    }
 
+    public void SwitchTargets()
+    {
+        targetChoice = Random.Range(1, battleController.playerCount + 1);
+
+        switch (targetChoice)
+        {
+            case 1: 
+                pAnim = player.GetComponent<Animator>();
+                playerAbilities = player.GetComponent<PlayerAbilities>();
+                if (playerAbilities.defeated == true)
+                {
+                    SwitchTargets();
+                }
+                break;
+
+            case 2:
+                pAnim = player2Spawn.GetComponentInChildren<Animator>();
+                playerAbilities = player2Spawn.GetComponentInChildren<PlayerAbilities>();
+                if (playerAbilities.defeated == true)
+                {
+                    SwitchTargets();
+                }
+                break;
+
+            case 3:
+                pAnim = player3Spawn.GetComponentInChildren<Animator>();
+                playerAbilities = player3Spawn.GetComponentInChildren<PlayerAbilities>();
+                if (playerAbilities.defeated == true)
+                {
+                    SwitchTargets();
+                }
+                break;
+        }
+    }
 
     private void HitChecker()
     {
@@ -209,6 +251,8 @@ public class EnemyAbilities : MonoBehaviour {
     public void EnemyAI()
     {
         //Generate a number and use to determine which attack to use.
+        SwitchTargets();
+
         choice = Random.Range(min, max);
         if (choice <= 20)
         {

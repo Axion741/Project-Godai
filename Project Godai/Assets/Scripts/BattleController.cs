@@ -32,7 +32,9 @@ public class BattleController : MonoBehaviour {
     public float enemy2XP;
     public float enemy3XP;
 
+    public int playerCount;
     private bool victorious = false;
+    private bool defeated = false;
     public string battleType;
 
 
@@ -53,6 +55,7 @@ public class BattleController : MonoBehaviour {
     private void Update()
     {
         CheckVictory();
+        CheckDefeat();
     }
 
     void Setup()
@@ -94,21 +97,24 @@ public class BattleController : MonoBehaviour {
     {
         playerAbilities = player1.GetComponent<PlayerAbilities>();
         playerAbilities.PlayerAbilitiesSetup();
+        playerCount++;
 
         if(playerStats.player2recruited == 1)
         {
-        playerStats2 = playerSpawn2.GetComponentInChildren<PlayerStats2>();
-        playerAbilities2 = playerSpawn2.GetComponentInChildren<PlayerAbilities>();
-        playerStats2.PlayerStatsSetup();
-        playerAbilities2.PlayerAbilitiesSetup();
+            playerStats2 = playerSpawn2.GetComponentInChildren<PlayerStats2>();
+            playerAbilities2 = playerSpawn2.GetComponentInChildren<PlayerAbilities>();
+            playerStats2.PlayerStatsSetup();
+            playerAbilities2.PlayerAbilitiesSetup();
+            playerCount++;
         }
 
         if(playerStats.player3recruited == 1)
         {
-        playerStats3 = playerSpawn3.GetComponentInChildren<PlayerStats3>();
-        playerAbilities3 = playerSpawn3.GetComponentInChildren<PlayerAbilities>();
-        playerStats3.PlayerStatsSetup();
-        playerAbilities3.PlayerAbilitiesSetup();
+            playerStats3 = playerSpawn3.GetComponentInChildren<PlayerStats3>();
+            playerAbilities3 = playerSpawn3.GetComponentInChildren<PlayerAbilities>();
+            playerStats3.PlayerStatsSetup();
+            playerAbilities3.PlayerAbilitiesSetup();
+            playerCount++;
         }
 
     }
@@ -248,6 +254,38 @@ public class BattleController : MonoBehaviour {
                 {
                     resultsController.WinFight();
                     victorious = true;
+                }
+                break;
+        }
+
+    }
+
+    private void CheckDefeat()
+    {
+
+        switch (playerCount)
+        {
+            case 1:
+                if (defeated == false & playerAbilities.defeated == true)
+                {
+                    resultsController.LoseFight();
+                    defeated = true;
+                }
+                break;
+
+            case 2:
+                if (defeated == false & playerAbilities.defeated == true & playerAbilities2.defeated == true)
+                {
+                    resultsController.LoseFight();
+                    defeated = true;
+                }
+                break;
+
+            case 3:
+                if (defeated == false & playerAbilities.defeated == true & playerAbilities2.defeated == true & playerAbilities3.defeated == true)
+                {
+                    resultsController.LoseFight();
+                    defeated = true;
                 }
                 break;
         }

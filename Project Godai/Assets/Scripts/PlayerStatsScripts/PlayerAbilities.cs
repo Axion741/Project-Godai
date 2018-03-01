@@ -23,7 +23,7 @@ public class PlayerAbilities : MonoBehaviour
     public GameObject auraFront;
     public GameObject auraBack;
 
-
+    public bool defeated = false;
     public float currentHealth;
     public float maxHealth;
     public float currentMP;
@@ -58,8 +58,8 @@ public class PlayerAbilities : MonoBehaviour
         else if (currentHealth <= 0)
         {
             pAnim.SetBool("isDead", true);
-            resultsController.LoseFight();
-
+            //resultsController.LoseFight();
+            defeated = true;
         }
     }
 
