@@ -19,9 +19,14 @@ public class GoblinStats : MonoBehaviour, IEnemyStats {
     public float EvasionChance { get; set; }
     public float ExperienceValue { get; set; }
 
+    //Nametag control
+    private TextMesh characterName;
+    private GameObject nametag;
+
     void Awake ()
     {
         GenerateStats();
+        SetNametag();
     }
 
 
@@ -45,5 +50,13 @@ public class GoblinStats : MonoBehaviour, IEnemyStats {
         EvasionChance = (Speed + EnemyLevel) / 2;
         //Debug.Log("enemy EVA = " + EvasionChance);
         ExperienceValue = EnemyLevel * 100;
+    }
+
+    private void SetNametag()
+    {
+        nametag = transform.Find("Body/NameText").gameObject;
+        characterName = nametag.GetComponent<TextMesh>();
+
+        characterName.text = "Goblin - Lv." + EnemyLevel;
     }
 }
