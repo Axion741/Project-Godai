@@ -9,7 +9,7 @@ public class PlayerAbilities : MonoBehaviour
     private Animator pAnim;
     private Animator eAnim;
     private EnemyAbilities enemyAbilities;
-    private ResultsController resultsController;
+    //private ResultsController resultsController;
     private TurnManager turnManager;
     private SpriteRenderer frontRender;
     private SpriteRenderer backRender;
@@ -51,17 +51,7 @@ public class PlayerAbilities : MonoBehaviour
     void Update()
     {
 
-        if (currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-        else if (currentHealth <= 0)
-        {
-            pAnim.SetBool("isDead", true);
-            RemoveSelfFromTimeline();
-            //resultsController.LoseFight();
-            defeated = true;
-        }
+
     }
 
     public void ChangeTarget(string targetCharacter)
@@ -91,7 +81,7 @@ public class PlayerAbilities : MonoBehaviour
     public void PlayerAbilitiesSetup()
     {
         //playerStats = GetComponent<PlayerStats>();
-        resultsController = FindObjectOfType<ResultsController>();
+        //resultsController = FindObjectOfType<ResultsController>();
         turnManager = FindObjectOfType<TurnManager>();
         enemySpawn1 = GameObject.Find("EnemySpawn1");
         enemySpawn2 = GameObject.Find("EnemySpawn2");
@@ -332,6 +322,20 @@ public class PlayerAbilities : MonoBehaviour
         if (transform.root.gameObject.name == "PlayerSpawn3")
         {
             turnManager.RemoveFromList("player3");
+        }
+    }
+
+    public void HealthChecker()
+    {
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else if (currentHealth <= 0)
+        {
+            defeated = true;
+            pAnim.SetBool("isDead", true);
+            RemoveSelfFromTimeline();
         }
     }
 }

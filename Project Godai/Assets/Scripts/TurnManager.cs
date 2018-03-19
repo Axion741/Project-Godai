@@ -264,19 +264,19 @@ public class TurnManager : MonoBehaviour {
             case (TurnStates.enemy1Turn):
                 print("enemy1's turn");
                 ControlBlocker.SetActive(true);
-                enemyAbilities1.EnemyAI();
+                enemyAbilities1.RunTurn();
                 break;
 
             case (TurnStates.enemy2Turn):
                 print("enemy2's turn");
                 ControlBlocker.SetActive(true);
-                enemyAbilities2.EnemyAI();
+                enemyAbilities2.RunTurn();
                 break;
 
             case (TurnStates.enemy3Turn):
                 print("enemy3's turn");
                 ControlBlocker.SetActive(true);
-                enemyAbilities3.EnemyAI();
+                enemyAbilities3.RunTurn();
                 break;
         }
     }

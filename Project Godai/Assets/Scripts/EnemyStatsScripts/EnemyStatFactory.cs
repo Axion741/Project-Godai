@@ -9,11 +9,14 @@ public class EnemyStatFactory : MonoBehaviour {
         switch (enemyType.ToLower())
         {
             case "goblin":
-                print("Generating GoblinStats");
+                //print("Generating GoblinStats");
                 return targetCharacter.AddComponent<GoblinStats>();
 
             case "skeleton":
                 return targetCharacter.AddComponent<SkeletonStats>();
+
+            case "fireelemental":
+                return targetCharacter.AddComponent<FireElementalStats>();
 
             default:
                 return targetCharacter.AddComponent<DefaultEnemyStats>();

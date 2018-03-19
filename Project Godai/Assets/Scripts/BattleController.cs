@@ -49,6 +49,7 @@ public class BattleController : MonoBehaviour {
         FindAlliedCharacters();
         FindCharacters();
         EnemyAbilitiesSequence();
+        EnemyTargetSetup();
         battleButtonController.Setup();
         turnManager.TurnManagerSetup();
         turnManager.RunTurn();
@@ -125,12 +126,14 @@ public class BattleController : MonoBehaviour {
 
     void EnemyAbilitiesSequence()
     {
+        enemyAbilities1.Setup();
         enemyAbilities1.GrabStats();
         enemyAbilities1.SetupStats();
         enemy1XP = enemyAbilities1.experienceValue;
 
         if (spawnController.enemyCount > 1)
         {
+            enemyAbilities2.Setup();
             enemyAbilities2.GrabStats();
             enemyAbilities2.SetupStats();
             enemy2XP = enemyAbilities2.experienceValue;
@@ -138,9 +141,32 @@ public class BattleController : MonoBehaviour {
         else return;
         if (spawnController.enemyCount == 3)
         {
+            enemyAbilities3.Setup();
             enemyAbilities3.GrabStats();
             enemyAbilities3.SetupStats();
             enemy3XP = enemyAbilities3.experienceValue;
+        }
+        else return;
+
+    }
+
+    void EnemyTargetSetup()
+    {
+
+        enemyAbilities1.SwitchTargets();
+
+        if (spawnController.enemyCount > 1)
+        {
+
+            enemyAbilities2.SwitchTargets();
+
+        }
+        else return;
+        if (spawnController.enemyCount == 3)
+        {
+
+            enemyAbilities3.SwitchTargets();
+
         }
         else return;
 

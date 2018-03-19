@@ -5,16 +5,14 @@ using UnityEngine;
 public class EnemyAbilities : MonoBehaviour {
 
     private Animator eAnim;
-    private Animator pAnim;
-    private Animator pAnim2;
-    private Animator pAnim3;
+    public Animator pAnim;
     private GameObject pBlast;
 
     public bool defeated = false;
     private string enemyType;
     private EnemyStatFactory enemyStatFactory;
     private IEnemyStats enemyStats;
-    private BattleController battleController;
+    public BattleController battleController;
 
     public TurnManager turnManager;
     public PlayerAbilities playerAbilities;
@@ -45,18 +43,21 @@ public class EnemyAbilities : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-       // GrabStats();
-        eAnim = GetComponent<Animator>();
-        SetupTargets();
-        battleController = FindObjectOfType<BattleController>();
-        turnManager = FindObjectOfType<TurnManager>();
-        //SetupStats();
+
     }
 	
 	// Update is called once per frame
 	void Update () {
 
 	}
+
+    public void Setup()
+    {
+        eAnim = GetComponent<Animator>();
+        SetupTargets();
+        battleController = FindObjectOfType<BattleController>();
+        turnManager = FindObjectOfType<TurnManager>();
+    }
 
     public void GrabStats()
     {
@@ -92,6 +93,19 @@ public class EnemyAbilities : MonoBehaviour {
         player3Spawn = GameObject.Find("PlayerSpawn3");
     }
 
+    public void RunTurn()
+    {
+        SwitchTargets();
+        if(playerAbilities.defeated != true)
+        {
+            EnemyAI();
+        }
+        else
+        {
+            RunTurn();
+        }
+    }
+
     public void SwitchTargets()
     {
         targetChoice = Random.Range(1, battleController.playerCount + 1);
@@ -101,36 +115,38 @@ public class EnemyAbilities : MonoBehaviour {
             case 1: 
                 pAnim = player.GetComponent<Animator>();
                 playerAbilities = player.GetComponent<PlayerAbilities>();
-                if (playerAbilities.defeated == true)
-                {
-                    SwitchTargets();
-                }
+                playerDodge = playerAbilities.evasionChance;
+                //if (playerAbilities.defeated == true)
+                //{
+                //    SwitchTargets();
+                //}
                 break;
 
             case 2:
                 pAnim = player2Spawn.GetComponentInChildren<Animator>();
                 playerAbilities = player2Spawn.GetComponentInChildren<PlayerAbilities>();
-                if (playerAbilities.defeated == true)
-                {
-                    SwitchTargets();
-                }
+                playerDodge = playerAbilities.evasionChance;
+                //if (playerAbilities.defeated == true)
+                //{
+                //    SwitchTargets();
+                //}
                 break;
 
             case 3:
                 pAnim = player3Spawn.GetComponentInChildren<Animator>();
                 playerAbilities = player3Spawn.GetComponentInChildren<PlayerAbilities>();
-                if (playerAbilities.defeated == true)
-                {
-                    SwitchTargets();
-                }
+                playerDodge = playerAbilities.evasionChance;
+                //if (playerAbilities.defeated == true)
+                //{
+                //    SwitchTargets();
+                //}
                 break;
         }
     }
 
     private void HitChecker()
     {
-        hitValue = Random.Range(0, 100);
-        playerDodge = playerAbilities.evasionChance;       
+        hitValue = Random.Range(0, 100);      
     }
 
     private void PunchAttack()
@@ -148,8 +164,9 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-        playerAbilities.currentHealth = playerAbilities.currentHealth - damage * attackBoost;
-        pAnim.SetTrigger("isDamaged");
+            playerAbilities.currentHealth = playerAbilities.currentHealth - damage * attackBoost;
+            pAnim.SetTrigger("isDamaged");
+            playerAbilities.HealthChecker();
         }
 
     }
@@ -158,7 +175,6 @@ public class EnemyAbilities : MonoBehaviour {
     {
         HitChecker();
         eAnim.SetTrigger("isKicking");
-        //TurnController.TurnChange();
     }
 
     public void KickDamage()
@@ -171,6 +187,7 @@ public class EnemyAbilities : MonoBehaviour {
         {
             playerAbilities.currentHealth = playerAbilities.currentHealth - damage * 2.5f * attackBoost;
             pAnim.SetTrigger("isDamaged");
+            playerAbilities.HealthChecker();
         }
     }
 
@@ -197,8 +214,9 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-            playerAbilities.currentHealth = playerAbilities.currentHealth - sDamage * 4f * attackBoost;
+            playerAbilities.currentHealth = playerAbilities.currentHealth - sDamage * 3f * attackBoost;
             pAnim.SetTrigger("isDamaged");
+            playerAbilities.HealthChecker();
         }
     }
 
@@ -231,16 +249,24 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-            playerAbilities.currentHealth = playerAbilities.currentHealth - sDamage * 1.5f * attackBoost;
+            playerAbilities.currentHealth = playerAbilities.currentHealth - sDamage * 1f * attackBoost;
             pAnim.SetTrigger("isDamaged");
+            playerAbilities.HealthChecker();
         }
     }
 
     private void PowerUp()
     {
-        eAnim.SetTrigger("isPowerUp");
-        attackBoost = attackBoost + 0.1f;
-        //TurnController.TurnChange();
+        if(currentMP != maxMP)
+        {
+            eAnim.SetTrigger("isPowerUp");
+            MPBoost();
+        }
+        else
+        {
+            EnemyAI();
+        }
+
     }
 
     public void ResetBoost()
@@ -251,7 +277,7 @@ public class EnemyAbilities : MonoBehaviour {
     public void EnemyAI()
     {
         //Generate a number and use to determine which attack to use.
-        SwitchTargets();
+        //SwitchTargets();
 
         choice = Random.Range(min, max);
         if (choice <= 20)
@@ -326,6 +352,18 @@ public class EnemyAbilities : MonoBehaviour {
         }
     }
 
+    private void MPBoost()
+    {
+        if (currentMP != maxMP)
+        {
+            currentMP += 20;
+        }
+        else if (currentMP >= maxMP - 20)
+        {
+            currentMP = maxMP;
+        }
+
+    }
 
 
 }

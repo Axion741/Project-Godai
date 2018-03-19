@@ -40,11 +40,11 @@ public class SpawnController : MonoBehaviour {
 
         if (player2Recruited == 1)
         {
-            GameObject PlayerCharacter2 = Instantiate(player2, playerSpawn2.transform.position, Quaternion.identity, playerSpawn2.transform);
+            Instantiate(player2, playerSpawn2.transform.position, Quaternion.identity, playerSpawn2.transform);
         }
         if(player3Recruited == 1)
         {
-            GameObject PlayerCharacter3 = Instantiate(player3, playerSpawn3.transform.position, Quaternion.identity, playerSpawn3.transform);
+            Instantiate(player3, playerSpawn3.transform.position, Quaternion.identity, playerSpawn3.transform);
         }
     }
 
@@ -146,9 +146,9 @@ public class SpawnController : MonoBehaviour {
         {
             case "goblin party":
                 enemyCount = 3;
-                enemy1Index = 0;
-                enemy2Index = 0;
-                enemy3Index = 0;
+                enemy1Index = 1;
+                enemy2Index = 1;
+                enemy3Index = 1;
 
                 break;
 
@@ -156,18 +156,18 @@ public class SpawnController : MonoBehaviour {
             case "skeletal smash":
         
                 enemyCount = 3;
-                enemy1Index = 1;
-                enemy2Index = 1;
-                enemy3Index = 1;
+                enemy1Index = 2;
+                enemy2Index = 2;
+                enemy3Index = 2;
 
                 break;
 
             case "speedtest":
 
                 enemyCount = 3;
-                enemy1Index = 1;
+                enemy1Index = 0;
                 enemy2Index = 0;
-                enemy3Index = 1;
+                enemy3Index = 0;
 
                 break;
         }
