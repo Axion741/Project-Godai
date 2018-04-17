@@ -15,11 +15,15 @@ public class SpawnController : MonoBehaviour {
     public GameObject player3;
     public GameObject playerSpawn2;
     public GameObject playerSpawn3;
-    private int enemy1Index;
-    private int enemy2Index;
-    private int enemy3Index;
+    private string enemy1Index;
+    private string enemy2Index;
+    private string enemy3Index;
     private int randomChoice;
     public int enemyCount;
+
+    public Dictionary<string, GameObject> prefabDict = new Dictionary<string, GameObject>();
+        
+
 
 	// Use this for initialization
 	void Start () {
@@ -78,11 +82,10 @@ public class SpawnController : MonoBehaviour {
     void SpawnerSetup()
     {
         enemyPrefabArray = Resources.LoadAll<GameObject>("EnemyPrefabs");
+        BuildPrefabDictionary();
         enemySpawn1 = GameObject.Find("EnemySpawn1");
         enemySpawn2 = GameObject.Find("EnemySpawn2");
         enemySpawn3 = GameObject.Find("EnemySpawn3");
-
-
     }
 
     void AssignRandomSpawns()
@@ -99,9 +102,13 @@ public class SpawnController : MonoBehaviour {
     void AssignPresetSpawns(string battleType)
     {
         DetermineBattletype(battleType);
-        enemy1 = enemyPrefabArray[enemy1Index];
-        enemy2 = enemyPrefabArray[enemy2Index];
-        enemy3 = enemyPrefabArray[enemy3Index];
+        enemy1 = prefabDict[enemy1Index];
+        enemy2 = prefabDict[enemy2Index];
+        enemy3 = prefabDict[enemy3Index];
+
+        //enemy1 = enemyPrefabArray[enemy1Index];
+        //enemy2 = enemyPrefabArray[enemy2Index];
+        //enemy3 = enemyPrefabArray[enemy3Index];
     }
 
 
@@ -138,17 +145,24 @@ public class SpawnController : MonoBehaviour {
        SpawnedEnemy3.name = enemy3.name;  
     }
 
+    void BuildPrefabDictionary()
+    {
+        foreach (GameObject enemy in enemyPrefabArray)
+        {
+            prefabDict.Add(enemy.name, enemy);
+        }
+    }
 
-    //BattleTypes are for prebaked/story battles. Indexes are based on the order in the prefab folder. Buttons initiating battle should run LoadBattle and input the battleType as a string.
+    //BattleTypes are for prebaked/story battles. Indexes are based on the name of the character in the prefab folder. Buttons initiating battle should run LoadBattle and input the battleType as a string.
     void DetermineBattletype(string battleType)
     {
         switch (battleType)
         {
             case "goblin party":
                 enemyCount = 3;
-                enemy1Index = 1;
-                enemy2Index = 1;
-                enemy3Index = 1;
+                enemy1Index = "Goblin";
+                enemy2Index = "Goblin";
+                enemy3Index = "Goblin";
 
                 break;
 
@@ -156,18 +170,18 @@ public class SpawnController : MonoBehaviour {
             case "skeletal smash":
         
                 enemyCount = 3;
-                enemy1Index = 2;
-                enemy2Index = 2;
-                enemy3Index = 2;
+                enemy1Index = "Skeleton";
+                enemy2Index = "Skeleton";
+                enemy3Index = "Skeleton";
 
                 break;
 
             case "speedtest":
 
                 enemyCount = 3;
-                enemy1Index = 0;
-                enemy2Index = 0;
-                enemy3Index = 0;
+                enemy1Index = "Goblin";
+                enemy2Index = "Skeleton";
+                enemy3Index = "FireElemental";
 
                 break;
         }
