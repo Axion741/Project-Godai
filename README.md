@@ -22,6 +22,10 @@ BE ADVISED: Project Godai is currently borderline UNPLAYABLE. Major gameplay cha
 Have fun and wish me luck! -Axion
 
 
+Updates:
+
+17/4/18: Work has been super slow due to work and family commitments, but hope to start getting back to the grindstone. The game is now roughly playable, but lacks content for the moment, and future updates could cause serious issues. Next on the agenda is allied experience and levelling, as well as fixing animation bugs with the allied characters. 
+
 
 
 
