@@ -338,6 +338,8 @@
     <Compile Include="Assets\Scripts\PlayerStatsScripts\PlayerStats2.cs" />
     <Compile Include="Assets\Scripts\PlayerStatsScripts\PlayerStats3.cs" />
     <Compile Include="Assets\Scripts\ResultsController.cs" />
+    <Compile Include="Assets\Scripts\SaveData.cs" />
+    <Compile Include="Assets\Scripts\SaveManager.cs" />
     <Compile Include="Assets\Scripts\SpawnController.cs" />
     <Compile Include="Assets\Scripts\SplashLoad.cs" />
     <Compile Include="Assets\Scripts\StatScreenController.cs" />

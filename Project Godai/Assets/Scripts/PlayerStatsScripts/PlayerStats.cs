@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour, IPlayerStats {
 
     private ResultsController resController;
+    public SaveManager saveManager;
+    public SaveData saveData;
 
     public int player2recruited = 0;
     public int player3recruited = 0;
@@ -53,6 +55,8 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
 
     public void PlayerStatsSetup()
     {
+        saveManager = FindObjectOfType<SaveManager>();
+        saveData = FindObjectOfType<SaveData>();
         GetSavedStats();
         DetermineStrength();
         DetermineSpirit();
@@ -62,6 +66,7 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         DetermineMP();
         LevelUp();
         resController = FindObjectOfType<ResultsController>();
+
     }
 
     public void LevelTester()
@@ -79,9 +84,10 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
             playerLevel++;
             experienceThreshold = playerLevel * 500;
             statPoints = statPoints + 5;
-            PlayerPrefsManager.SetStatPoints(statPoints);
-            PlayerPrefsManager.SetPlayerLevel(playerLevel);
-            PlayerPrefsManager.SetExperiencePoints(experiencePoints);
+            //PlayerPrefsManager.SetStatPoints(statPoints);
+            //PlayerPrefsManager.SetPlayerLevel(playerLevel);
+            //PlayerPrefsManager.SetExperiencePoints(experiencePoints);
+            saveManager.SaveAllData();
             resController.TextEnabler();
             print("exp to next = " + experienceThreshold);
             print("current stat points = " + statPoints);
@@ -92,7 +98,7 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
 
     public void SetExperience()
     {
-        PlayerPrefsManager.SetExperiencePoints(experiencePoints);
+        saveManager.SaveAllData();
         LevelUp();
     }
 
@@ -101,12 +107,11 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         if (playerLevel > 1)
         {
             playerLevel = 1;
-            PlayerPrefsManager.SetPlayerLevel(playerLevel);
-            PlayerPrefsManager.GetPlayerLevel();
+            saveManager.SaveAllData();
         }
         else
         {
-            playerLevel = PlayerPrefsManager.GetPlayerLevel();
+            playerLevel = saveData.playerLevel1;
         }
     }
 
@@ -125,24 +130,24 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
 
     public void DetermineStrength()
     {
-        currentStrength = baseStrength + PlayerPrefsManager.GetStrengthMod();
+        currentStrength = baseStrength + saveData.modStrength1;
         PhysicalDamage = currentStrength;
     }
 
     public void DetermineSpeed()
     {
-        currentSpeed = baseSpeed + PlayerPrefsManager.GetSpeedMod();
+        currentSpeed = baseSpeed + saveData.modSpeed1;
         EvasionChance = currentSpeed / 2;
     }
 
     public void DetermineEndurance()
     {
-        currentEndurance = baseEndurance + PlayerPrefsManager.GetEnduranceMod();
+        currentEndurance = baseEndurance + saveData.modEndurance1;
     }
 
     public void DetermineSpirit()
     {
-        currentSpirit = baseSpirit + PlayerPrefsManager.GetSpiritMod();
+        currentSpirit = baseSpirit + saveData.modSpirit1;
         MagicDamage = currentSpirit * 1.5f;
     }
 
@@ -150,11 +155,10 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
     {
         if (statPoints > 0)
         {
-            modStrength++;
-            PlayerPrefsManager.SetStrengthMod(modStrength);
+            modStrength++;           
             DetermineStrength();
             statPoints--;
-            PlayerPrefsManager.SetStatPoints(statPoints);
+            saveManager.SaveAllData();
       }
     }
 
@@ -163,10 +167,9 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         if (statPoints > 0)
         {
             modSpeed++;
-            PlayerPrefsManager.SetSpeedMod(modSpeed);
             DetermineSpeed();
             statPoints--;
-            PlayerPrefsManager.SetStatPoints(statPoints);
+            saveManager.SaveAllData();
         }
     }
 
@@ -175,11 +178,10 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         if (statPoints > 0)
         {
             modEndurance++;
-            PlayerPrefsManager.SetEnduranceMod(modEndurance);
             DetermineEndurance();
             DetermineHealth();
             statPoints--;
-            PlayerPrefsManager.SetStatPoints(statPoints);
+            saveManager.SaveAllData();
         }
     }
 
@@ -188,11 +190,10 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         if (statPoints > 0)
         {
             modSpirit++;
-            PlayerPrefsManager.SetSpiritMod(modSpirit);
             DetermineSpirit();
             DetermineMP();
             statPoints--;
-            PlayerPrefsManager.SetStatPoints(statPoints);
+            saveManager.SaveAllData();
         }
     }
 
@@ -205,23 +206,17 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         playerLevel = 1;
         experiencePoints = 0;
         statPoints = 0;
-        breakPoint = 0;
-        PlayerPrefsManager.SetBreakPoint(breakPoint);
         experienceThreshold = playerLevel * 500;
-        PlayerPrefsManager.SetPlayerLevel(playerLevel);
-        PlayerPrefsManager.SetExperiencePoints(experiencePoints);
-        PlayerPrefsManager.SetStatPoints(statPoints);
-        DetermineLevel();
-        PlayerPrefsManager.SetStrengthMod(modStrength);
+
+        saveManager.SaveAllData();
+
         DetermineStrength();
-        PlayerPrefsManager.SetSpeedMod(modSpeed);
         DetermineSpeed();
-        PlayerPrefsManager.SetEnduranceMod(modEndurance);
         DetermineEndurance();
-        PlayerPrefsManager.SetSpiritMod(modSpirit);
         DetermineSpirit();
         DetermineHealth();
         DetermineMP();
+
         confPanel.SetActive(false);
     }
 
@@ -237,14 +232,15 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
 
     public void GetSavedStats()
     {
-        modStrength = PlayerPrefsManager.GetStrengthMod();
-        modSpeed = PlayerPrefsManager.GetSpeedMod();
-        modEndurance = PlayerPrefsManager.GetEnduranceMod();
-        modSpirit = PlayerPrefsManager.GetSpiritMod();
-        experiencePoints = PlayerPrefsManager.GetExperiencePoints();
-        statPoints = PlayerPrefsManager.GetStatPoints();
-        player2recruited = PlayerPrefsManager.GetPlayer2Recruited();
-        player3recruited = PlayerPrefsManager.GetPlayer3Recruited();
+        saveManager.ImportPlayerStats();
+        modStrength = saveData.modStrength1;
+        modSpeed = saveData.modSpeed1;
+        modEndurance = saveData.modEndurance1;
+        modSpirit = saveData.modSpirit1;
+        experiencePoints = saveData.experiencePoints1;
+        statPoints = saveData.statPoints1;
+        player2recruited = saveData.player2Recruited;
+        player3recruited = saveData.player3Recruited;
         DetermineLevel();            
     }
 
@@ -253,13 +249,13 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         if (player2recruited == 0)
         {
             player2recruited = 1;
-            PlayerPrefsManager.SetPlayer2Recruited(player2recruited);
+            saveData.player2Recruited = player2recruited;
             print("Player 2 recruited");
         }
         else if (player2recruited == 1)
         {
             player2recruited = 0;
-            PlayerPrefsManager.SetPlayer2Recruited(player2recruited);
+            saveData.player2Recruited = player2recruited;
             print("Player 2 left");
         }
     }
@@ -269,13 +265,13 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         if (player3recruited == 0)
         {
             player3recruited = 1;
-            PlayerPrefsManager.SetPlayer3Recruited(player3recruited);
+            saveData.player3Recruited = player3recruited;
             print("Player 3 recruited");
         }
         else if (player3recruited == 1)
         {
             player3recruited = 0;
-            PlayerPrefsManager.SetPlayer3Recruited(player3recruited);
+            saveData.player3Recruited = player3recruited;
             print("Player 3 left");
         }
 

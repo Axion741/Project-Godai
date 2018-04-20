@@ -16,10 +16,12 @@ public class ModNumberController : MonoBehaviour {
     private float experiencePoints;
 
     private PlayerStats playerStats;
+    private SaveData saveData;
 
 	// Use this for initialization
 	void Start () {
         playerStats = GameObject.FindObjectOfType<PlayerStats>();
+        saveData = FindObjectOfType<SaveData>();
 	}
 	
 	// Update is called once per frame
@@ -61,43 +63,43 @@ public class ModNumberController : MonoBehaviour {
 
     public void StrengthText()
     {
-        strengthMod = PlayerPrefsManager.GetStrengthMod();
+        strengthMod = saveData.modStrength1;
         text.text = ("<Color=#00ff00ff>+" + strengthMod.ToString() + "</Color>");
     }
 
     public void SpeedText()
     {
-        speedMod = PlayerPrefsManager.GetSpeedMod();
+        speedMod = saveData.modSpeed1;
         text.text = ("<Color=#00ff00ff>+" + speedMod.ToString() + "</Color>");
     }
 
     public void EnduranceText()
     {
-        enduranceMod = PlayerPrefsManager.GetEnduranceMod();
+        enduranceMod = saveData.modEndurance1;
         text.text = ("<Color=#00ff00ff>+" + enduranceMod.ToString() + "</Color>");
     }
 
     public void SpiritText()
     {
-        spiritMod = PlayerPrefsManager.GetSpiritMod();
+        spiritMod = saveData.modSpirit1;
         text.text = ("<Color=#00ff00ff>+" + spiritMod.ToString() + "</Color>");
     }
 
     public void LevelText()
     {
-        playerLevel = PlayerPrefsManager.GetPlayerLevel();
+        playerLevel = saveData.playerLevel1;
         text.text = ("<Color=white> Lvl: " + playerLevel.ToString() + "</Color>");
     }
 
     public void ExpText()
     {
-        experiencePoints = PlayerPrefsManager.GetExperiencePoints();
+        experiencePoints = saveData.experiencePoints1;
         text.text = ("<Color=white> Exp: " + experiencePoints.ToString() + "/" + playerStats.experienceThreshold + "</Color>");
     }
 
     public void StatText()
     {
-        statPoints = PlayerPrefsManager.GetStatPoints();
+        statPoints = saveData.statPoints1;
         text.text = ("<Color=white> Stat Points: " + statPoints.ToString() + "</Color>");
     }
 }
