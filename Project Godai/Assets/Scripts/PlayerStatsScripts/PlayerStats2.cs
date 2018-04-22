@@ -27,6 +27,10 @@ public class PlayerStats2 : MonoBehaviour, IPlayerStats {
     public float MagicDamage { get; set; }
     public float EvasionChance { get; set; }
 
+    public float experiencePoints;
+    public float experienceThreshold;
+    public int statPoints;
+
     // Use this for initialization
     void Start () {
                

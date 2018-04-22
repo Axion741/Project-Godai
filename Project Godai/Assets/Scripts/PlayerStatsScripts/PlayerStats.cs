@@ -104,7 +104,7 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
 
     public void DetermineLevel()
     {
-        if (playerLevel > 1)
+        if (playerLevel <= 1)
         {
             playerLevel = 1;
             saveManager.SaveAllData();
