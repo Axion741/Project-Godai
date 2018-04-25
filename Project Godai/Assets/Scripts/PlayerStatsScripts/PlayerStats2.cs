@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerStats2 : MonoBehaviour, IPlayerStats {
 
+    private ResultsController resController;
+    public SaveManager saveManager;
+    public SaveData saveData;
+    public GameObject confPanel;
+
     private int baseStrength = 10;
     private int baseSpeed = 10;
     private int baseEndurance = 10;
@@ -43,14 +48,163 @@ public class PlayerStats2 : MonoBehaviour, IPlayerStats {
 
     public void PlayerStatsSetup()
     {
-        currentStrength = baseStrength + modStrength;
-        currentSpeed = baseSpeed + modSpeed;
-        currentEndurance = baseEndurance + modEndurance;
-        currentSpirit = baseSpirit + modSpirit;
-        MaxHealth = currentEndurance * 10;
-        MaxMP = currentSpirit * 10;
-        PhysicalDamage = currentStrength;
-        MagicDamage = currentSpirit * 1.5f;
-        EvasionChance = currentSpeed / 2;
+        saveManager = FindObjectOfType<SaveManager>();
+        saveData = FindObjectOfType<SaveData>();
+        GetSavedStats();
+        DetermineStat("all");
+        LevelUp();
+        resController = FindObjectOfType<ResultsController>();
+    }
+
+    public void GetSavedStats()
+    {
+        saveManager.ImportPlayerStats();
+        modStrength = saveData.modStrength2;
+        modSpeed = saveData.modSpeed2;
+        modEndurance = saveData.modEndurance2;
+        modSpirit = saveData.modSpirit2;
+        experiencePoints = saveData.experiencePoints2;
+        statPoints = saveData.statPoints2;
+        DetermineLevel();
+    }
+
+    public void DetermineLevel()
+    {
+        if (playerLevel <= 1)
+        {
+            playerLevel = 1;
+            saveManager.SaveAllData();
+        }
+        else
+        {
+            playerLevel = saveData.playerLevel2;
+        }
+    }
+
+    public void DetermineStat(string stat)
+    {
+        switch (stat)
+        {
+            case "health":
+                MaxHealth = currentEndurance * 10;
+                break;
+
+            case "magicpoints":
+                MaxMP = currentSpirit * 10;
+                break;
+
+            case "strength":
+                currentStrength = baseStrength + modStrength;
+                PhysicalDamage = currentStrength;
+                break;
+
+            case "speed":
+                currentSpeed = baseSpeed + modSpeed;
+                EvasionChance = currentSpeed / 2;
+                break;
+
+            case "endurance":
+                currentEndurance = baseEndurance + modEndurance;
+                break;
+
+            case "spirit":
+                currentSpirit = baseSpirit + modSpirit;
+                MagicDamage = currentSpirit * 1.5f;
+                break;
+
+            case "all":
+                currentEndurance = baseEndurance + modEndurance;
+                currentSpirit = baseSpirit + modSpirit;
+                MaxHealth = currentEndurance * 10;
+                MaxMP = currentSpirit * 10;
+                currentStrength = baseStrength + modStrength;
+                PhysicalDamage = currentStrength;
+                currentSpeed = baseSpeed + modSpeed;
+                EvasionChance = currentSpeed / 2;
+                MagicDamage = currentSpirit * 1.5f;
+                break;
+        }
+    }
+
+    public void LevelUp()
+    {
+        experienceThreshold = playerLevel * 500;
+        if (experiencePoints >= experienceThreshold)
+        {
+            experiencePoints = experiencePoints - experienceThreshold;
+            playerLevel++;
+            experienceThreshold = playerLevel * 500;
+            statPoints = statPoints + 5;
+            saveManager.SaveAllData();
+            resController.TextEnabler();
+            print("exp to next = " + experienceThreshold);
+            print("current stat points = " + statPoints);
+            LevelUp();
+        }
+        else return;
+    }
+
+    public void LevelStrength()
+    {
+        if (statPoints > 0)
+        {
+            modStrength++;
+            DetermineStat("strength");
+            statPoints--;
+            saveManager.SaveAllData();
+        }
+    }
+
+    public void LevelSpeed()
+    {
+        if (statPoints > 0)
+        {
+            modSpeed++;
+            DetermineStat("speed");
+            statPoints--;
+            saveManager.SaveAllData();
+        }
+    }
+
+    public void LevelEndurance()
+    {
+        if (statPoints > 0)
+        {
+            modEndurance++;
+            DetermineStat("endurance");
+            DetermineStat("health");
+            statPoints--;
+            saveManager.SaveAllData();
+        }
+    }
+
+    public void LevelSpirit()
+    {
+        if (statPoints > 0)
+        {
+            modSpirit++;
+            DetermineStat("spirit");
+            DetermineStat("magicpoints");
+            statPoints--;
+            saveManager.SaveAllData();
+        }
+    }
+
+    public void ResetStats()
+    {
+        modStrength = 0;
+        modSpeed = 0;
+        modEndurance = 0;
+        modSpirit = 0;
+        playerLevel = 1;
+        experiencePoints = 0;
+        statPoints = 0;
+        experienceThreshold = playerLevel * 500;
+
+        saveManager.SaveAllData();
+
+        DetermineStat("all");
+
+        confPanel.SetActive(false);
     }
 }

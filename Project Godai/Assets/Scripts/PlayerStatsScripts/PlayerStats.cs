@@ -58,15 +58,9 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         saveManager = FindObjectOfType<SaveManager>();
         saveData = FindObjectOfType<SaveData>();
         GetSavedStats();
-        DetermineStrength();
-        DetermineSpirit();
-        DetermineEndurance();
-        DetermineSpeed();
-        DetermineHealth();
-        DetermineMP();
+        DetermineStat("all");
         LevelUp();
         resController = FindObjectOfType<ResultsController>();
-
     }
 
     public void LevelTester()
@@ -84,9 +78,6 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
             playerLevel++;
             experienceThreshold = playerLevel * 500;
             statPoints = statPoints + 5;
-            //PlayerPrefsManager.SetStatPoints(statPoints);
-            //PlayerPrefsManager.SetPlayerLevel(playerLevel);
-            //PlayerPrefsManager.SetExperiencePoints(experiencePoints);
             saveManager.SaveAllData();
             resController.TextEnabler();
             print("exp to next = " + experienceThreshold);
@@ -115,48 +106,60 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         }
     }
 
-    public void DetermineHealth()
+    public void DetermineStat(string stat)
     {
-        MaxHealth = currentEndurance*10;
+        switch (stat)
+        {
+            case "health":
+                MaxHealth = currentEndurance*10;
+                break;       
         
+            case "magicpoints":
+                MaxMP = currentSpirit * 10;
+                break;
+      
+            case "strength":
+                currentStrength = baseStrength + modStrength;
+                PhysicalDamage = currentStrength;
+                break;
+
+            case "speed":
+                currentSpeed = baseSpeed + modSpeed;
+                EvasionChance = currentSpeed / 2;
+                break;
+
+            case "endurance":
+                currentEndurance = baseEndurance + modEndurance;
+                break;
+
+            case "spirit":
+                currentSpirit = baseSpirit + modSpirit;
+                MagicDamage = currentSpirit * 1.5f;
+                break;
+
+            case "all":
+                currentEndurance = baseEndurance + modEndurance;
+                currentSpirit = baseSpirit + modSpirit;
+                MaxHealth = currentEndurance * 10;
+                MaxMP = currentSpirit * 10;
+                currentStrength = baseStrength + modStrength;
+                PhysicalDamage = currentStrength;
+                currentSpeed = baseSpeed + modSpeed;
+                EvasionChance = currentSpeed / 2;
+                MagicDamage = currentSpirit * 1.5f;
+                print ("stats determined!");
+                break;
+        }
     }
 
-    public void DetermineMP()
-    {
-        MaxMP = currentSpirit * 10;
-       
-    }
 
-
-    public void DetermineStrength()
-    {
-        currentStrength = baseStrength + saveData.modStrength1;
-        PhysicalDamage = currentStrength;
-    }
-
-    public void DetermineSpeed()
-    {
-        currentSpeed = baseSpeed + saveData.modSpeed1;
-        EvasionChance = currentSpeed / 2;
-    }
-
-    public void DetermineEndurance()
-    {
-        currentEndurance = baseEndurance + saveData.modEndurance1;
-    }
-
-    public void DetermineSpirit()
-    {
-        currentSpirit = baseSpirit + saveData.modSpirit1;
-        MagicDamage = currentSpirit * 1.5f;
-    }
 
     public void LevelStrength()
     {
         if (statPoints > 0)
         {
             modStrength++;           
-            DetermineStrength();
+            DetermineStat("strength");
             statPoints--;
             saveManager.SaveAllData();
       }
@@ -167,7 +170,7 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         if (statPoints > 0)
         {
             modSpeed++;
-            DetermineSpeed();
+            DetermineStat("speed");
             statPoints--;
             saveManager.SaveAllData();
         }
@@ -178,8 +181,8 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         if (statPoints > 0)
         {
             modEndurance++;
-            DetermineEndurance();
-            DetermineHealth();
+            DetermineStat("endurance");
+            DetermineStat("health");
             statPoints--;
             saveManager.SaveAllData();
         }
@@ -190,8 +193,8 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         if (statPoints > 0)
         {
             modSpirit++;
-            DetermineSpirit();
-            DetermineMP();
+            DetermineStat("spirit");
+            DetermineStat("magicpoints");
             statPoints--;
             saveManager.SaveAllData();
         }
@@ -210,12 +213,7 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
 
         saveManager.SaveAllData();
 
-        DetermineStrength();
-        DetermineSpeed();
-        DetermineEndurance();
-        DetermineSpirit();
-        DetermineHealth();
-        DetermineMP();
+        DetermineStat("all");
 
         confPanel.SetActive(false);
     }
