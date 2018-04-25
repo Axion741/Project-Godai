@@ -18,6 +18,7 @@ public class BattleController : MonoBehaviour {
     private PlayerAbilities playerAbilities3;
     private ResultsController resultsController;
     private BattleButtonController battleButtonController;
+    private BarController barController;
 
     private GameObject player1;
     private GameObject playerSpawn2;
@@ -32,6 +33,7 @@ public class BattleController : MonoBehaviour {
     public float enemy1XP;
     public float enemy2XP;
     public float enemy3XP;
+    public float totalXP;
 
     public int playerCount;
     private bool victorious = false;
@@ -68,6 +70,7 @@ public class BattleController : MonoBehaviour {
         resultsController = FindObjectOfType<ResultsController>();
         spawnController = FindObjectOfType<SpawnController>();
         battleButtonController = FindObjectOfType<BattleButtonController>();
+        barController = FindObjectOfType<BarController>();
         player1 = GameObject.Find("PlayerCharacter");
         playerStats = player1.GetComponent<PlayerStats>();
         playerStats.PlayerStatsSetup();
@@ -102,6 +105,7 @@ public class BattleController : MonoBehaviour {
         playerAbilities = player1.GetComponent<PlayerAbilities>();
         playerAbilities.PlayerAbilitiesSetup();
         playerCount++;
+        barController.EXPBarStart(1);
 
         if(playerStats.player2recruited == 1)
         {
@@ -110,6 +114,7 @@ public class BattleController : MonoBehaviour {
             playerStats2.PlayerStatsSetup();
             playerAbilities2.PlayerAbilitiesSetup();
             playerCount++;
+            barController.EXPBarStart(2);
         }
 
         if(playerStats.player3recruited == 1)
@@ -119,6 +124,7 @@ public class BattleController : MonoBehaviour {
             playerStats3.PlayerStatsSetup();
             playerAbilities3.PlayerAbilitiesSetup();
             playerCount++;
+            barController.EXPBarStart(3);
         }
 
     }
@@ -325,9 +331,31 @@ public class BattleController : MonoBehaviour {
                 break;
         }
 
+
     }
 
 
+        public void AwardExperience()
+        {
+        totalXP = enemy1XP + enemy2XP + enemy3XP;
+        playerStats.experiencePoints = playerStats.experiencePoints + totalXP;
+        barController.EXPBarWin(1);
+        playerStats.LevelUp();
+
+        if (playerStats.player2recruited == 1)
+        {
+            playerStats2.experiencePoints = playerStats2.experiencePoints + totalXP;
+            barController.EXPBarWin(2);
+            playerStats2.LevelUp();
+        }
+
+        if (playerStats.player3recruited == 1)
+        {
+            playerStats3.experiencePoints = playerStats3.experiencePoints + totalXP;
+            barController.EXPBarWin(3);
+            playerStats3.LevelUp();
+        }
+    }
 
 
 

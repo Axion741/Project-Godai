@@ -8,10 +8,12 @@ public class ResultsController : MonoBehaviour {
     public Canvas resultsCanvas;
     public Text titleText;
     public Text pointText;
-    public Text pointMessage;
+    public Text pointText2;
+    public Text pointText3;
     private PlayerStats playerStats;
+    private PlayerStats2 playerStats2;
+    private PlayerStats3 playerStats3;
     private BattleController battleController;
-    private float totalXP;
 
 	// Use this for initialization
 	void Start () {
@@ -36,10 +38,8 @@ public class ResultsController : MonoBehaviour {
     {
         titleText.text = "Victory!";
         ResultCanvasEnabler();
-        totalXP = battleController.enemy1XP + battleController.enemy2XP + battleController.enemy3XP;
-        playerStats.experiencePoints = playerStats.experiencePoints + totalXP;
-        playerStats.SetExperience();
-
+        battleController.AwardExperience();
+       
     }
 
     public void LoseFight()
@@ -48,9 +48,29 @@ public class ResultsController : MonoBehaviour {
         ResultCanvasEnabler();
     }
 
-    public void TextEnabler()
+    public void TextEnabler(int character)
     {
-        pointText.text = playerStats.statPoints + " Skill Points Available!";
-        pointMessage.enabled = true;
+        switch (character)
+        {
+            case 1:
+                pointText.text = playerStats.statPoints + " Skill Points Available!";
+                pointText.enabled = true;
+                break;
+
+            case 2:
+                playerStats2 = FindObjectOfType<PlayerStats2>();                
+                pointText2.text = playerStats2.statPoints + " Skill Points Available!";
+                pointText2.enabled = true;
+                break;
+
+            case 3:
+                playerStats3 = FindObjectOfType<PlayerStats3>();
+                pointText3.text = playerStats3.statPoints + " Skill Points Available!";
+                pointText3.enabled = true;
+                break;
+
+        }
+
+
     }
 }

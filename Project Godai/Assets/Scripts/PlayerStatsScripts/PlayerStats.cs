@@ -63,10 +63,11 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
         resController = FindObjectOfType<ResultsController>();
     }
 
+    //For Dev Use Only//
     public void LevelTester()
     {
         experiencePoints = experiencePoints + 500;
-        SetExperience();
+        LevelUp();
     }
 
     public void LevelUp()
@@ -79,19 +80,14 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
             experienceThreshold = playerLevel * 500;
             statPoints = statPoints + 5;
             saveManager.SaveAllData();
-            resController.TextEnabler();
+            resController.TextEnabler(1);
             print("exp to next = " + experienceThreshold);
             print("current stat points = " + statPoints);
             LevelUp();
         }
-        else return;
+        else saveManager.SaveAllData();
     }
 
-    public void SetExperience()
-    {
-        saveManager.SaveAllData();
-        LevelUp();
-    }
 
     public void DetermineLevel()
     {

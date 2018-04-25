@@ -136,12 +136,19 @@ public class PlayerStats3 : MonoBehaviour, IPlayerStats {
             experienceThreshold = playerLevel * 500;
             statPoints = statPoints + 5;
             saveManager.SaveAllData();
-            resController.TextEnabler();
+            resController.TextEnabler(3);
             print("exp to next = " + experienceThreshold);
             print("current stat points = " + statPoints);
             LevelUp();
         }
-        else return;
+        else saveManager.SaveAllData();
+    }
+
+    //For Dev Use Only//
+    public void LevelTester()
+    {
+        experiencePoints = experiencePoints + 500;
+        LevelUp();
     }
 
     public void LevelStrength()
