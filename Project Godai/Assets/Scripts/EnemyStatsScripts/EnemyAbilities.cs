@@ -116,30 +116,39 @@ public class EnemyAbilities : MonoBehaviour {
                 pAnim = player.GetComponent<Animator>();
                 playerAbilities = player.GetComponent<PlayerAbilities>();
                 playerDodge = playerAbilities.evasionChance;
-                //if (playerAbilities.defeated == true)
-                //{
-                //    SwitchTargets();
-                //}
+                if (playerAbilities.defeated == true)
+                {
+                    SwitchTargets();
+                }
                 break;
 
             case 2:
                 pAnim = player2Spawn.GetComponentInChildren<Animator>();
                 playerAbilities = player2Spawn.GetComponentInChildren<PlayerAbilities>();
+                if(playerAbilities == null)
+                {
+                    SwitchTargets();
+                }
                 playerDodge = playerAbilities.evasionChance;
-                //if (playerAbilities.defeated == true)
-                //{
-                //    SwitchTargets();
-                //}
+                if (playerAbilities.defeated == true)
+                {
+                    SwitchTargets();
+                }
                 break;
 
             case 3:
                 pAnim = player3Spawn.GetComponentInChildren<Animator>();
                 playerAbilities = player3Spawn.GetComponentInChildren<PlayerAbilities>();
+                if (playerAbilities == null)
+                {
+                    SwitchTargets();
+                }
                 playerDodge = playerAbilities.evasionChance;
-                //if (playerAbilities.defeated == true)
-                //{
-                //    SwitchTargets();
-                //}
+
+                if (playerAbilities.defeated == true)
+                {
+                    SwitchTargets();
+                }
                 break;
         }
     }

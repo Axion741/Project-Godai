@@ -12,6 +12,9 @@ public class BarController : MonoBehaviour {
     private float barStart2;
     private float barStart3;
 
+    public GameObject barParent1;
+    public GameObject barParent2;
+    public GameObject barParent3;
     public Image expBar;
     public Image expBar2;
     public Image expBar3;
@@ -27,7 +30,7 @@ public class BarController : MonoBehaviour {
 
         playerStats = FindObjectOfType<PlayerStats>();
 
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -42,16 +45,19 @@ public class BarController : MonoBehaviour {
         switch (character)
         {
             case 1:
+                barParent1.SetActive(true);
                 playerStats = FindObjectOfType<PlayerStats>();
                 barStart1 = playerStats.experiencePoints / playerStats.experienceThreshold;
                 break;
 
             case 2:
+                barParent2.SetActive(true);
                 playerStats2 = FindObjectOfType<PlayerStats2>();
                 barStart2 = playerStats2.experiencePoints / playerStats2.experienceThreshold;
                 break;
 
             case 3:
+                barParent3.SetActive(true);
                 playerStats3 = FindObjectOfType<PlayerStats3>();
                 barStart3 = playerStats3.experiencePoints / playerStats3.experienceThreshold;
                 break;

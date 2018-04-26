@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class StatScreenController : MonoBehaviour {
 
-    private ModNumberController modController;
+    //private ModNumberController modController;
     private PlayerStats playerStats;
     private PlayerStats2 playerStats2;
     private PlayerStats3 playerStats3;
@@ -23,7 +23,7 @@ public class StatScreenController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        modController = FindObjectOfType<ModNumberController>();
+        //modController = FindObjectOfType<ModNumberController>();
         p2Toggle = GameObject.Find("Player2Toggle");
         p3Toggle = GameObject.Find("Player3Toggle");
         //p1Selector = GameObject.Find("Player1ToggleSwitch");
