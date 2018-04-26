@@ -52,6 +52,7 @@ public class PlayerStats2 : MonoBehaviour, IPlayerStats {
         saveData = FindObjectOfType<SaveData>();
         GetSavedStats();
         DetermineStat("all");
+        experienceThreshold = playerLevel * 500;
         LevelUp();
         resController = FindObjectOfType<ResultsController>();
     }
@@ -168,7 +169,7 @@ public class PlayerStats2 : MonoBehaviour, IPlayerStats {
         {
             modSpeed++;
             DetermineStat("speed");
-            statPoints--;
+            statPoints = statPoints -1;
             saveManager.SaveAllData();
         }
     }
@@ -212,6 +213,16 @@ public class PlayerStats2 : MonoBehaviour, IPlayerStats {
 
         DetermineStat("all");
 
+        confPanel.SetActive(false);
+    }
+
+    public void CheckReset()
+    {
+        confPanel.SetActive(true);
+    }
+
+    public void DenyReset()
+    {
         confPanel.SetActive(false);
     }
 }

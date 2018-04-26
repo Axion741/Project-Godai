@@ -7,30 +7,38 @@ public class StatScreenController : MonoBehaviour {
 
     private ModNumberController modController;
     private PlayerStats playerStats;
+    private PlayerStats2 playerStats2;
+    private PlayerStats3 playerStats3;
     private GameObject p2Toggle;
     private GameObject p3Toggle;
-    private GameObject p1Selector;
+    //private GameObject p1Selector;
     private GameObject p2Selector;
     private GameObject p3Selector;
     public GameObject p1Controls;
     public GameObject p2Controls;
     public GameObject p3Controls;
-  
+
+    public int selectedCharacter;
+
 
     // Use this for initialization
     void Start () {
         modController = FindObjectOfType<ModNumberController>();
         p2Toggle = GameObject.Find("Player2Toggle");
         p3Toggle = GameObject.Find("Player3Toggle");
-        p1Selector = GameObject.Find("Player1ToggleSwitch");
+        //p1Selector = GameObject.Find("Player1ToggleSwitch");
         p2Selector = GameObject.Find("Player2ToggleSwitch");
         p3Selector = GameObject.Find("Player3ToggleSwitch");
         p1Controls = GameObject.Find("Player1StatControls");
         p2Controls = GameObject.Find("Player2StatControls");
         p3Controls = GameObject.Find("Player3StatControls");
         playerStats = FindObjectOfType<PlayerStats>();
+        playerStats2 = FindObjectOfType<PlayerStats2>();
+        playerStats3 = FindObjectOfType<PlayerStats3>();
         playerStats.PlayerStatsSetup();
-        modController.selectedCharacter = 1;
+        playerStats2.PlayerStatsSetup();
+        playerStats3.PlayerStatsSetup();
+        selectedCharacter = 1;
         p2Controls.SetActive(false);
         p3Controls.SetActive(false);
 
@@ -80,7 +88,7 @@ public class StatScreenController : MonoBehaviour {
                     p1Controls.SetActive(true);
                     p2Controls.SetActive(false);
                     p3Controls.SetActive(false);
-                    modController.selectedCharacter = 1;
+                    selectedCharacter = 1;
                 }
                 break;
 
@@ -94,7 +102,7 @@ public class StatScreenController : MonoBehaviour {
                     p1Controls.SetActive(false);
                     p2Controls.SetActive(true);
                     p3Controls.SetActive(false);
-                    modController.selectedCharacter = 2;
+                    selectedCharacter = 2;
                 }
                 break;
 
@@ -108,7 +116,7 @@ public class StatScreenController : MonoBehaviour {
                     p1Controls.SetActive(false);
                     p2Controls.SetActive(false);
                     p3Controls.SetActive(true);
-                    modController.selectedCharacter = 3;
+                    selectedCharacter = 3;
                 }
                 break;
         }

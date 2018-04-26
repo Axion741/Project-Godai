@@ -217,6 +217,7 @@ public class PlayerStats : MonoBehaviour, IPlayerStats {
     public void CheckReset()
     {
         confPanel.SetActive(true);
+        print("Check Reset");
     }
 
     public void DenyReset()

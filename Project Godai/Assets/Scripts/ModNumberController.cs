@@ -14,8 +14,8 @@ public class ModNumberController : MonoBehaviour {
     private int playerLevel;    
     private int statPoints;
     private float experiencePoints;
-    public int selectedCharacter;
 
+    private StatScreenController statScreenController;
     private PlayerStats playerStats;
     private PlayerStats2 playerStats2;
     private PlayerStats3 playerStats3;
@@ -26,6 +26,7 @@ public class ModNumberController : MonoBehaviour {
         playerStats = GameObject.FindObjectOfType<PlayerStats>();
         playerStats2 = GameObject.FindObjectOfType<PlayerStats2>();
         playerStats3 = GameObject.FindObjectOfType<PlayerStats3>();
+        statScreenController = FindObjectOfType<StatScreenController>();
         saveData = FindObjectOfType<SaveData>();
 	}
 	
@@ -68,7 +69,7 @@ public class ModNumberController : MonoBehaviour {
 
     public void StrengthText()
     {
-        switch (selectedCharacter)
+        switch (statScreenController.selectedCharacter)
         {
             case 1:
                 strengthMod = saveData.modStrength1;
@@ -89,7 +90,7 @@ public class ModNumberController : MonoBehaviour {
 
     public void SpeedText()
     {
-        switch (selectedCharacter)
+        switch (statScreenController.selectedCharacter)
         {
             case 1:
                 speedMod = saveData.modSpeed1;
@@ -110,7 +111,7 @@ public class ModNumberController : MonoBehaviour {
 
     public void EnduranceText()
     {
-        switch (selectedCharacter)
+        switch (statScreenController.selectedCharacter)
         {
             case 1:
                 enduranceMod = saveData.modEndurance1;
@@ -133,7 +134,7 @@ public class ModNumberController : MonoBehaviour {
     public void SpiritText()
     {
 
-        switch (selectedCharacter)
+        switch (statScreenController.selectedCharacter)
         {
             case 1:
                 spiritMod = saveData.modSpirit1;
@@ -156,7 +157,7 @@ public class ModNumberController : MonoBehaviour {
 
     public void LevelText()
     {
-        switch (selectedCharacter)
+        switch (statScreenController.selectedCharacter)
         {
             case 1:
                 playerLevel = saveData.playerLevel1;
@@ -178,7 +179,7 @@ public class ModNumberController : MonoBehaviour {
 
     public void ExpText()
     {
-        switch (selectedCharacter)
+        switch (statScreenController.selectedCharacter)
         {
             case 1:
                 experiencePoints = saveData.experiencePoints1;
@@ -200,7 +201,7 @@ public class ModNumberController : MonoBehaviour {
 
     public void StatText()
     {
-        switch (selectedCharacter)
+        switch (statScreenController.selectedCharacter)
         {
             case 1:
                 statPoints = saveData.statPoints1;
