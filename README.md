@@ -11,6 +11,9 @@ Warning! All releases are unfinished and may contain gamebreaking bugs.
 Project Godai's Game Design Document is available to view from: 
 https://docs.google.com/document/d/1g5EcOxzUIKk0YOqqDI14wZRS-O1piSennyJmp4rPtRk/edit?usp=sharing
 
+The TODO list/schedule has migrated to Trello.
+https://trello.com/b/txUdQy82
+
 In order to install the .apk file on your android device you must allow unknown sources in your security settings.
 
 ///////////////
