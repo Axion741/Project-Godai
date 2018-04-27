@@ -18,6 +18,9 @@ public class SpawnController : MonoBehaviour {
     private string enemy1Index;
     private string enemy2Index;
     private string enemy3Index;
+    public int enemylvl1;
+    public int enemylvl2;
+    public int enemylvl3;
     private int randomChoice;
     public int enemyCount;
 
@@ -106,9 +109,7 @@ public class SpawnController : MonoBehaviour {
         enemy2 = prefabDict[enemy2Index];
         enemy3 = prefabDict[enemy3Index];
 
-        //enemy1 = enemyPrefabArray[enemy1Index];
-        //enemy2 = enemyPrefabArray[enemy2Index];
-        //enemy3 = enemyPrefabArray[enemy3Index];
+
     }
 
 
@@ -161,9 +162,11 @@ public class SpawnController : MonoBehaviour {
             case "goblin party":
                 enemyCount = 3;
                 enemy1Index = "Goblin";
+                enemylvl1 = 2;
                 enemy2Index = "Goblin";
+                enemylvl2 = 1;
                 enemy3Index = "Goblin";
-
+                enemylvl3 = 1;
                 break;
 
 
@@ -171,8 +174,11 @@ public class SpawnController : MonoBehaviour {
         
                 enemyCount = 3;
                 enemy1Index = "Skeleton";
+                enemylvl1 = 9;
                 enemy2Index = "Skeleton";
+                enemylvl2 = 7;
                 enemy3Index = "Skeleton";
+                enemylvl3 = 9;
 
                 break;
 
@@ -180,8 +186,11 @@ public class SpawnController : MonoBehaviour {
 
                 enemyCount = 3;
                 enemy1Index = "Goblin";
+                enemylvl1 = 10;
                 enemy2Index = "Skeleton";
+                enemylvl2 = 12;
                 enemy3Index = "FireElemental";
+                enemylvl3 = 17;
 
                 break;
         }

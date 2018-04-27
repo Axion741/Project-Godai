@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class GoblinStats : MonoBehaviour, IEnemyStats {
 
-
     private int strength = 5;
     public int Speed { get; set; }
     private int endurance = 5;
     private int spirit = 5;
-
 
     public int EnemyLevel { get; set; }
     public float MaxHealth { get; set; }
@@ -23,8 +21,16 @@ public class GoblinStats : MonoBehaviour, IEnemyStats {
     private TextMesh characterName;
     private GameObject nametag;
 
+    //Level Determination
+    private SpawnController spawnController;
+    private string rootName;
+    private int minLevel = 1;
+    private int maxLevel = 5; //This should be the absolute maximum. Random.range excluding max value is already taken into account.
+
+
     void Awake ()
     {
+        spawnController = FindObjectOfType<SpawnController>();
         GenerateStats();
         SetNametag();
     }
@@ -36,9 +42,9 @@ public class GoblinStats : MonoBehaviour, IEnemyStats {
         //SetSpeedHere
         Speed = 5;
 
+        DetermineLevel();
 
-        EnemyLevel = Random.Range(1, 6);
-        Debug.Log("enemy level = " + EnemyLevel);
+        //Debug.Log("enemy level = " + EnemyLevel);
         MaxHealth = (endurance + EnemyLevel) * 10;
         //Debug.Log("enemy HP = " + maxHealth);
         MaxMP = (spirit + EnemyLevel) * 10;
@@ -58,5 +64,38 @@ public class GoblinStats : MonoBehaviour, IEnemyStats {
         characterName = nametag.GetComponent<TextMesh>();
 
         characterName.text = "Goblin - Lv." + EnemyLevel;
+    }
+
+    //Determine Level based on spawn order. If level defined as 0, randomize.
+    private void DetermineLevel()
+    {
+        rootName = transform.root.gameObject.name;
+
+        switch (rootName)
+        {
+            case "EnemySpawn1":
+                if (spawnController.enemylvl1 <= 0)
+                {
+                    EnemyLevel = Random.Range(minLevel, maxLevel + 1);
+                }
+                else EnemyLevel = spawnController.enemylvl1;
+                break;
+
+            case "EnemySpawn2":
+                if (spawnController.enemylvl2 <= 0)
+                {
+                    EnemyLevel = Random.Range(minLevel, maxLevel + 1);
+                }
+                else EnemyLevel = spawnController.enemylvl2;
+                break;
+
+            case "EnemySpawn3":
+                if (spawnController.enemylvl3 <= 0)
+                {
+                    EnemyLevel = Random.Range(minLevel, maxLevel + 1);
+                }
+                else EnemyLevel = spawnController.enemylvl3;
+                break;
+        }
     }
 }
