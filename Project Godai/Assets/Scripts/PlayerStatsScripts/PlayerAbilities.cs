@@ -11,8 +11,8 @@ public class PlayerAbilities : MonoBehaviour
     private EnemyAbilities enemyAbilities;
     //private ResultsController resultsController;
     private TurnManager turnManager;
-    private SpriteRenderer frontRender;
-    private SpriteRenderer backRender;
+    //private SpriteRenderer frontRender;
+    //private SpriteRenderer backRender;
 
     public IPlayerStats playerStats;
     public GameObject enemySpawn1;
@@ -29,13 +29,14 @@ public class PlayerAbilities : MonoBehaviour
     public float currentMP;
     public float maxMP;
     public float evasionChance;
+    public float physicalResist;
+    public float magicalResist;
 
     private float damage;
     private float sDamage;
-    private float attackBoost = 1f;
-    private float tMultiplier = 1;
     private float hitValue;
     private float enemyDodge;
+    private float totalDamage;
 
 
 
@@ -91,8 +92,8 @@ public class PlayerAbilities : MonoBehaviour
         eAnim = enemy.GetComponent<Animator>();
         pAnim = GetComponent<Animator>();   
         GetStats();
-        frontRender = auraFront.GetComponent<SpriteRenderer>();
-        backRender = auraBack.GetComponent<SpriteRenderer>();
+        //frontRender = auraFront.GetComponent<SpriteRenderer>();
+        //backRender = auraBack.GetComponent<SpriteRenderer>();
     }
 
     //Stat Control
@@ -120,6 +121,30 @@ public class PlayerAbilities : MonoBehaviour
         damage = playerStats.PhysicalDamage;
         sDamage = playerStats.MagicDamage;
         evasionChance = playerStats.EvasionChance;
+        physicalResist = playerStats.PhysicalResist;
+        magicalResist = playerStats.MagicalResist;
+    }
+
+    public void TakeDamage(float damage, string damageType)
+    {
+        switch (damageType)
+        {
+            case "physical":
+                totalDamage = (damage - (damage * (physicalResist/100)));
+                currentHealth = currentHealth - totalDamage;
+                Debug.Log("Taken " + totalDamage + " physical damage");
+                pAnim.SetTrigger("isDamaged");
+                HealthChecker();
+                break;
+
+            case "magical":
+                totalDamage = (damage - (damage * (magicalResist/100)));
+                currentHealth = currentHealth - totalDamage;
+                Debug.Log("Taken " + totalDamage + " magical damage");
+                pAnim.SetTrigger("isDamaged");
+                HealthChecker();
+                break;
+        }
     }
 
     private void HitChecker()
@@ -145,9 +170,7 @@ public class PlayerAbilities : MonoBehaviour
         }
         else if (hitValue > enemyDodge)
         {
-            enemyAbilities.currentHealth = enemyAbilities.currentHealth - damage * tMultiplier * attackBoost;
-            eAnim.SetTrigger("isDamaged");
-            enemyAbilities.HealthChecker();
+            enemyAbilities.TakeDamage(damage, "physical");
         }
     }
 
@@ -166,9 +189,10 @@ public class PlayerAbilities : MonoBehaviour
         }
         else if (hitValue > enemyDodge)
         {
-            enemyAbilities.currentHealth = enemyAbilities.currentHealth - damage * 2.5f * tMultiplier * attackBoost;
-            eAnim.SetTrigger("isDamaged");
-            enemyAbilities.HealthChecker();
+            enemyAbilities.TakeDamage(damage + 2.5f, "physical");
+            //enemyAbilities.currentHealth = enemyAbilities.currentHealth - damage * 2.5f * tMultiplier * attackBoost;
+            //eAnim.SetTrigger("isDamaged");
+            //enemyAbilities.HealthChecker();
         }
     }
 
@@ -194,9 +218,10 @@ public class PlayerAbilities : MonoBehaviour
         }
         else if (hitValue > enemyDodge)
         {
-            enemyAbilities.currentHealth = enemyAbilities.currentHealth - sDamage * 3f * tMultiplier* attackBoost;
-            eAnim.SetTrigger("isDamaged");
-            enemyAbilities.HealthChecker();
+            enemyAbilities.TakeDamage(sDamage * 3, "magical");
+            //enemyAbilities.currentHealth = enemyAbilities.currentHealth - sDamage * 3f * tMultiplier* attackBoost;
+            //eAnim.SetTrigger("isDamaged");
+            //enemyAbilities.HealthChecker();
         }
     }
 
@@ -230,9 +255,11 @@ public class PlayerAbilities : MonoBehaviour
         }
         else if (hitValue > enemyDodge)
         {
-            enemyAbilities.currentHealth = enemyAbilities.currentHealth - sDamage * 1f * tMultiplier * attackBoost;
-            eAnim.SetTrigger("isDamaged");
-            enemyAbilities.HealthChecker();
+            enemyAbilities.TakeDamage(sDamage, "magical");
+
+            //enemyAbilities.currentHealth = enemyAbilities.currentHealth - sDamage * 1f * tMultiplier * attackBoost;
+            //eAnim.SetTrigger("isDamaged");
+            //enemyAbilities.HealthChecker();
         }
     }
 
@@ -272,38 +299,16 @@ public class PlayerAbilities : MonoBehaviour
 
     private void HPBoost()
     {
-        if (currentHealth != maxHealth)
-        {
-            currentHealth += (sDamage*2);
-        }
-        else if (currentHealth >= maxHealth - (sDamage*2))
+
+        if (currentHealth >= maxHealth - (sDamage*2))
         {
             currentHealth = maxHealth;
         }
+        else  if (currentHealth != maxHealth)
+        {
+            currentHealth += (sDamage * 2);
+        }
 
-    }
-
-
-
-    public void Transformation0()
-    {
-        frontRender.color = new Color32(122, 243, 255, 255);
-        backRender.color = new Color32(122, 243, 255, 255);
-        tMultiplier = 1;
-    }
-
-    public void Transformation1()
-    {
-        frontRender.color = new Color32(178, 0, 0, 255);
-        backRender.color = new Color32(178, 0, 0, 255);
-        tMultiplier = 2;
-    }
-
-    public void Transformation2()
-    {
-        frontRender.color = new Color32(255, 255, 0, 255);
-        backRender.color = new Color32(255, 255, 0, 255);
-        tMultiplier = 4;
     }
 
 

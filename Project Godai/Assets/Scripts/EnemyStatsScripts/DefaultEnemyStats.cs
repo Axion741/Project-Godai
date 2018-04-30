@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DefaultEnemyStats : MonoBehaviour, IEnemyStats{
 
+    private EnemyAbilities enemyAbilities;
+
     private int strength = 1;
     public int Speed { get; set; }
     private int endurance = 1;
@@ -17,6 +19,12 @@ public class DefaultEnemyStats : MonoBehaviour, IEnemyStats{
     public float EvasionChance { get; set; }
     public float ExperienceValue { get; set; }
 
+    //Resistances (set in generateStats)
+    //Modified by level! Check Level Range to ensure reasonable effects!
+    public float PhysicalResist { get; set; }
+    public float MagicalResist { get; set; }
+
+
     //Nametag control
     private TextMesh characterName;
     private GameObject nametag;
@@ -25,14 +33,17 @@ public class DefaultEnemyStats : MonoBehaviour, IEnemyStats{
     private SpawnController spawnController;
     private string rootName;
     private int minLevel = 1;
-    private int maxLevel = 1; //This should be the absolute maximum. Random.range excluding max value is already taken into account.
+    private int maxLevel = 1; 
+    //This should be the absolute maximum. Random.range excluding max value is already taken into account.
 
 
     void Awake()
     {
+        enemyAbilities = GetComponent<EnemyAbilities>();
         spawnController = FindObjectOfType<SpawnController>();
         GenerateStats();
         SetNametag();
+        AISetup();
     }
 
     private void GenerateStats()
@@ -55,6 +66,14 @@ public class DefaultEnemyStats : MonoBehaviour, IEnemyStats{
         EvasionChance = (Speed + EnemyLevel) / 2;
         //Debug.Log("enemy EVA = " + evasionChance);
         ExperienceValue = EnemyLevel * 100;
+
+        //SET RESISTANCES HERE
+        //(express as a percentage eg. 3.5 % resist = 3.5f)
+        PhysicalResist = 0f * EnemyLevel;
+        MagicalResist = 0f * EnemyLevel;
+
+
+
     }
 
     private void SetNametag()
@@ -97,4 +116,25 @@ public class DefaultEnemyStats : MonoBehaviour, IEnemyStats{
                 break;
         }
     }
+
+    private void AISetup()
+    {
+
+        //All values should be between 1 and 100 to cause attack. 
+        //Values of 0 will prevent attack from happening.
+        //Always build values ascending from top to bottom.
+        //Min should = Max of previous attack.
+        enemyAbilities.kickMin = 1;
+        enemyAbilities.kickMax = 20;
+        enemyAbilities.punchMin = 20;
+        enemyAbilities.punchMax = 40;
+        enemyAbilities.powerUpMin = 40;
+        enemyAbilities.powerUpMax = 50;
+        enemyAbilities.barrageMin = 50;
+        enemyAbilities.barrageMax = 75;
+        enemyAbilities.dashMin = 75;
+        enemyAbilities.dashMax = 100;
+    }
+
+
 }

@@ -21,12 +21,14 @@ public class EnemyAbilities : MonoBehaviour {
     private GameObject player3Spawn;
     public GameObject blast;
    
-    int max = 100;
+    int max = 101;
     int min = 1;
     int choice;
     float hitValue;
     float playerDodge;
-    
+    public float physicalResist;
+    public float magicalResist;
+
     public float evasionChance;
     public float currentHealth;
     public float maxHealth;
@@ -38,7 +40,20 @@ public class EnemyAbilities : MonoBehaviour {
 
     private float damage;
     private float sDamage;
-    private float attackBoost = 1f;
+    private float totalDamage;
+
+
+    //AI Customisation Ints (set by EnemyStats)
+    public int kickMin;
+    public int kickMax;
+    public int punchMin;
+    public int punchMax;
+    public int powerUpMin;
+    public int powerUpMax;
+    public int barrageMin;
+    public int barrageMax;
+    public int dashMin;
+    public int dashMax;
 
 
     // Use this for initialization
@@ -84,6 +99,8 @@ public class EnemyAbilities : MonoBehaviour {
         experienceValue = enemyStats.ExperienceValue;
         turnSpeed = enemyStats.Speed;
         print("turnspeed = " + turnSpeed);
+        physicalResist = enemyStats.PhysicalResist;
+        magicalResist = enemyStats.MagicalResist;
     }
 
     public void SetupTargets()
@@ -109,7 +126,7 @@ public class EnemyAbilities : MonoBehaviour {
     public void SwitchTargets()
     {
         targetChoice = Random.Range(1, battleController.playerCount + 1);
-
+        print("switchTargets");
         switch (targetChoice)
         {
             case 1: 
@@ -153,6 +170,28 @@ public class EnemyAbilities : MonoBehaviour {
         }
     }
 
+    public void TakeDamage(float damage, string damageType)
+    {
+        switch (damageType)
+        {
+            case "physical":
+                totalDamage = (damage - (damage * (physicalResist / 100)));
+                currentHealth = currentHealth - totalDamage;
+                Debug.Log("Taken " + totalDamage + " physical damage");
+                eAnim.SetTrigger("isDamaged");
+                HealthChecker();
+                break;
+
+            case "magical":
+                totalDamage = (damage - (damage * (magicalResist / 100)));
+                currentHealth = currentHealth - totalDamage;
+                Debug.Log("Taken " + totalDamage + " magical damage");
+                eAnim.SetTrigger("isDamaged");
+                HealthChecker();
+                break;
+        }
+    }
+
     private void HitChecker()
     {
         hitValue = Random.Range(0, 100);      
@@ -173,9 +212,7 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-            playerAbilities.currentHealth = playerAbilities.currentHealth - damage * attackBoost;
-            pAnim.SetTrigger("isDamaged");
-            playerAbilities.HealthChecker();
+            playerAbilities.TakeDamage(damage, "physical");
         }
 
     }
@@ -194,9 +231,10 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-            playerAbilities.currentHealth = playerAbilities.currentHealth - damage * 2.5f * attackBoost;
-            pAnim.SetTrigger("isDamaged");
-            playerAbilities.HealthChecker();
+            playerAbilities.TakeDamage(damage * 2.5f, "physical");
+            //playerAbilities.currentHealth = playerAbilities.currentHealth - damage * 2.5f * attackBoost;
+            //pAnim.SetTrigger("isDamaged");
+            //playerAbilities.HealthChecker();
         }
     }
 
@@ -205,7 +243,7 @@ public class EnemyAbilities : MonoBehaviour {
         if (currentMP < 50)
         {
             Debug.Log("Too little MP");
-            EnemyAI();
+            PowerUp();
         }
         else
         {
@@ -223,9 +261,10 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-            playerAbilities.currentHealth = playerAbilities.currentHealth - sDamage * 3f * attackBoost;
-            pAnim.SetTrigger("isDamaged");
-            playerAbilities.HealthChecker();
+            playerAbilities.TakeDamage(sDamage * 3f, "magical");
+            //playerAbilities.currentHealth = playerAbilities.currentHealth - sDamage * 3f * attackBoost;
+            //pAnim.SetTrigger("isDamaged");
+            //playerAbilities.HealthChecker();
         }
     }
 
@@ -234,7 +273,7 @@ public class EnemyAbilities : MonoBehaviour {
         if (currentMP < 40)
         {
             Debug.Log("Too little MP");
-            EnemyAI();
+            PowerUp();
         }
         else
         {
@@ -258,9 +297,10 @@ public class EnemyAbilities : MonoBehaviour {
         }
         else if (hitValue > playerDodge)
         {
-            playerAbilities.currentHealth = playerAbilities.currentHealth - sDamage * 1f * attackBoost;
-            pAnim.SetTrigger("isDamaged");
-            playerAbilities.HealthChecker();
+            playerAbilities.TakeDamage(sDamage, "magical");
+            //playerAbilities.currentHealth = playerAbilities.currentHealth - sDamage * 1f * attackBoost;
+            //pAnim.SetTrigger("isDamaged");
+            //playerAbilities.HealthChecker();
         }
     }
 
@@ -278,34 +318,59 @@ public class EnemyAbilities : MonoBehaviour {
 
     }
 
-    public void ResetBoost()
-    {
-        attackBoost = 1;
-    }
+
+    //OLD AI ROUTINE
+    //public void EnemyAI()
+    //{
+    //    //Generate a number and use to determine which attack to use.
+    //    //SwitchTargets();
+
+    //    choice = Random.Range(min, max);
+    //    if (choice <= 20)
+    //    {
+    //        KickAttack();
+    //    }
+    //    else if (choice > 20 && choice <= 50)
+    //    {
+    //        PunchAttack();
+    //    }
+    //    else if (choice > 50 && choice <= 70)
+    //    {
+    //        PowerUp();
+    //    }
+    //    else if (choice > 70 && choice <= 90)
+    //    {
+    //        BlastBarrageAttack();
+    //    }
+    //    else if (choice > 90 && choice <= 100)
+    //    {
+    //        BlastDashAttack();
+    //    }
+    //}
 
     public void EnemyAI()
     {
         //Generate a number and use to determine which attack to use.
-        //SwitchTargets();
-
+        //Mins and Maxs Set by EnemyStats
         choice = Random.Range(min, max);
-        if (choice <= 20)
+        //print("choice = " + choice);
+        if (choice >= kickMin && choice <= kickMax)
         {
             KickAttack();
         }
-        else if (choice > 20 && choice <= 50)
+        else if (choice > punchMin && choice <= punchMax)
         {
             PunchAttack();
         }
-        else if (choice > 50 && choice <= 70)
+        else if (choice > powerUpMin && choice <= powerUpMax)
         {
             PowerUp();
         }
-        else if (choice > 70 && choice <= 90)
+        else if (choice > barrageMin && choice <= barrageMax)
         {
             BlastBarrageAttack();
         }
-        else if (choice > 90 && choice <= 100)
+        else if (choice > dashMin && choice <= dashMax)
         {
             BlastDashAttack();
         }

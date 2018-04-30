@@ -5,5 +5,6 @@
     float PhysicalDamage { get; set; }
     float MagicDamage { get; set; }
     float EvasionChance { get; set; }
-
+    float PhysicalResist { get; set; }
+    float MagicalResist { get; set; }
 }

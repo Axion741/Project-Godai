@@ -36,6 +36,11 @@ public class PlayerStats2 : MonoBehaviour, IPlayerStats {
     public float experienceThreshold;
     public int statPoints;
 
+    //Resistances (express as a percentage eg. 3.5% resist = 3.5f)
+    //Modified by level! Setup in DetermineStat(Endurance/Spirit)
+    public float PhysicalResist { get; set; }
+    public float MagicalResist { get; set; }
+
     // Use this for initialization
     void Start () {
                
@@ -106,16 +111,20 @@ public class PlayerStats2 : MonoBehaviour, IPlayerStats {
 
             case "endurance":
                 currentEndurance = baseEndurance + modEndurance;
+                PhysicalResist = currentEndurance * 0.1f;
                 break;
 
             case "spirit":
                 currentSpirit = baseSpirit + modSpirit;
                 MagicDamage = currentSpirit * 1.5f;
+                MagicalResist = currentSpirit * 0.1f;
                 break;
 
             case "all":
                 currentEndurance = baseEndurance + modEndurance;
+                PhysicalResist = currentEndurance * 0.1f;
                 currentSpirit = baseSpirit + modSpirit;
+                MagicalResist = currentSpirit * 0.1f;
                 MaxHealth = currentEndurance * 10;
                 MaxMP = currentSpirit * 10;
                 currentStrength = baseStrength + modStrength;
@@ -123,6 +132,7 @@ public class PlayerStats2 : MonoBehaviour, IPlayerStats {
                 currentSpeed = baseSpeed + modSpeed;
                 EvasionChance = currentSpeed / 2;
                 MagicDamage = currentSpirit * 1.5f;
+                print("stats determined!");
                 break;
         }
     }

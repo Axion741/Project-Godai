@@ -9,5 +9,7 @@
     float EvasionChance { get; set; }
     float ExperienceValue { get; set; }
     int Speed { get; set; }
+    float PhysicalResist { get; set; }
+    float MagicalResist { get; set; }
 
 }
