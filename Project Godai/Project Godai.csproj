@@ -314,6 +314,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AttackSoundController.cs" />
+    <Compile Include="Assets\Scripts\BackgroundController.cs" />
     <Compile Include="Assets\Scripts\BarController.cs" />
     <Compile Include="Assets\Scripts\BattleButtonController.cs" />
     <Compile Include="Assets\Scripts\BattleController.cs" />

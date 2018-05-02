@@ -20,6 +20,7 @@ public class BattleController : MonoBehaviour {
     private BattleButtonController battleButtonController;
     private BarController barController;
     private LevelFlagger levelFlagger;
+    private BackgroundController backgroundController;
 
     private GameObject player1;
     private GameObject playerSpawn2;
@@ -57,6 +58,7 @@ public class BattleController : MonoBehaviour {
         turnManager.TurnManagerSetup();
         turnManager.RunTurn();
         levelFlagger.FlagSetup(battleType);
+        backgroundController.SetBackground(battleType);
         
     }
 
@@ -75,6 +77,8 @@ public class BattleController : MonoBehaviour {
         battleButtonController = FindObjectOfType<BattleButtonController>();
         barController = FindObjectOfType<BarController>();
         levelFlagger = FindObjectOfType<LevelFlagger>();
+        backgroundController = FindObjectOfType<BackgroundController>();
+        backgroundController.GetBackgrounds();
         player1 = GameObject.Find("PlayerCharacter");
         playerStats = player1.GetComponent<PlayerStats>();
         playerStats.PlayerStatsSetup();
