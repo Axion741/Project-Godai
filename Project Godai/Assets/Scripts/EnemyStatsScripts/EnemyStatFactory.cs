@@ -18,6 +18,12 @@ public class EnemyStatFactory : MonoBehaviour {
             case "fireelemental":
                 return targetCharacter.AddComponent<FireElementalStats>();
 
+            case "bandit":
+                return targetCharacter.AddComponent<BanditStats>();
+
+            case "ghost":
+                return targetCharacter.AddComponent<GhostStats>();
+
             default:
                 return targetCharacter.AddComponent<DefaultEnemyStats>();
             

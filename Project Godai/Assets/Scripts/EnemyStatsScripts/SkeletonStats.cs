@@ -121,12 +121,12 @@ public class SkeletonStats : MonoBehaviour, IEnemyStats{
         enemyAbilities.kickMin = 1;
         enemyAbilities.kickMax = 40;
         enemyAbilities.punchMin = 40;
-        enemyAbilities.punchMax = 80;
+        enemyAbilities.punchMax = 90;
         enemyAbilities.powerUpMin = 0;
         enemyAbilities.powerUpMax = 0;
-        enemyAbilities.barrageMin = 80;
-        enemyAbilities.barrageMax = 95;
-        enemyAbilities.dashMin = 95;
+        enemyAbilities.barrageMin = 0;
+        enemyAbilities.barrageMax = 0;
+        enemyAbilities.dashMin = 90;
         enemyAbilities.dashMax = 100;
     }
 

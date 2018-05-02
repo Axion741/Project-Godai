@@ -319,10 +319,12 @@
     <Compile Include="Assets\Scripts\BattleController.cs" />
     <Compile Include="Assets\Scripts\ButtonManager.cs" />
     <Compile Include="Assets\Scripts\EnemyProjectile.cs" />
+    <Compile Include="Assets\Scripts\EnemyStatsScripts\BanditStats.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\DefaultEnemyStats.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\EnemyAbilities.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\EnemyStatFactory.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\FireElementalStats.cs" />
+    <Compile Include="Assets\Scripts\EnemyStatsScripts\GhostStats.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\GoblinStats.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\IEnemyStats.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\SkeletonStats.cs" />

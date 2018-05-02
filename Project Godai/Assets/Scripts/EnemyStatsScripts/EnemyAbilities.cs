@@ -176,6 +176,10 @@ public class EnemyAbilities : MonoBehaviour {
         {
             case "physical":
                 totalDamage = (damage - (damage * (physicalResist / 100)));
+                if (totalDamage < 0)
+                {
+                    totalDamage = 0;
+                }
                 currentHealth = currentHealth - totalDamage;
                 Debug.Log("Taken " + totalDamage + " physical damage");
                 eAnim.SetTrigger("isDamaged");
@@ -184,6 +188,10 @@ public class EnemyAbilities : MonoBehaviour {
 
             case "magical":
                 totalDamage = (damage - (damage * (magicalResist / 100)));
+                if (totalDamage < 0)
+                {
+                    totalDamage = 0;
+                }
                 currentHealth = currentHealth - totalDamage;
                 Debug.Log("Taken " + totalDamage + " magical damage");
                 eAnim.SetTrigger("isDamaged");
