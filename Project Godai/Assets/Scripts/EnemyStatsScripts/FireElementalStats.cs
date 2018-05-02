@@ -63,7 +63,7 @@ public class FireElementalStats : MonoBehaviour, IEnemyStats{
         //Debug.Log("enemy mDMG = " + magicDamage);
         EvasionChance = (Speed + EnemyLevel) / 2;
         //Debug.Log("enemy EVA = " + evasionChance);
-        ExperienceValue = EnemyLevel * 100;
+        ExperienceValue = EnemyLevel * 175;
 
         PhysicalResist = 0.5f * EnemyLevel;
         MagicalResist = 2 * EnemyLevel;

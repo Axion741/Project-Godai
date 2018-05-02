@@ -65,7 +65,7 @@ public class GhostStats : MonoBehaviour, IEnemyStats{
         //Debug.Log("enemy mDMG = " + magicDamage);
         EvasionChance = (Speed + EnemyLevel) / 2;
         //Debug.Log("enemy EVA = " + evasionChance);
-        ExperienceValue = EnemyLevel * 100;
+        ExperienceValue = EnemyLevel * 200;
 
         //SET RESISTANCES HERE
         //(express as a percentage eg. 3.5 % resist = 3.5f)

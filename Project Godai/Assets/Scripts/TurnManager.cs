@@ -201,10 +201,10 @@ public class TurnManager : MonoBehaviour {
         //    print("DictVal = " + kvp.Key + " + " + kvp.Value);
         //}
 
-        //foreach (string characterName in turnTimeline)
-        //{
-        //    print(characterName);
-        //}
+        foreach (string characterName in turnTimeline)
+        {
+            print(characterName);
+        }
     }
 
     void DetermineTurn()

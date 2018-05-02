@@ -154,7 +154,12 @@ public class SpawnController : MonoBehaviour {
         }
     }
 
-    //BattleTypes are for prebaked/story battles. Indexes are based on the name of the character in the prefab folder. Buttons initiating battle should run LoadBattle and input the battleType as a string.
+    //BattleTypes are for prebaked/story battles. 
+    //Indexes are based on the name of the character in the prefab folder. 
+    //Buttons initiating battle should run LoadBattle and input the battleType as a string.
+    //Battles with less than 3 characters should still reference 3 characters.
+    //Use Goblins as placeholders. Only <EnemyCount> enemies will spawn.
+    //Indicate placeholders by placing after a double linebreak.
     void DetermineBattletype(string battleType)
     {
         switch (battleType)
@@ -192,6 +197,118 @@ public class SpawnController : MonoBehaviour {
                 enemy3Index = "FireElemental";
                 enemylvl3 = 17;
 
+                break;
+
+            case "test1":
+
+                enemyCount = 1;
+                enemy1Index = "Goblin";
+                enemylvl1 = 1;
+
+
+                enemy2Index = "Goblin";
+                enemy3Index = "Goblin";
+                break;
+
+            case "test2":
+
+                enemyCount = 2;
+                enemy1Index = "Goblin";
+                enemylvl1 = 3;
+                enemy2Index = "Goblin";
+                enemylvl2 = 2;
+
+
+                enemy3Index = "Goblin";
+                break;
+
+            case "test3":
+
+                enemyCount = 3;
+                enemy1Index = "Skeleton";
+                enemylvl1 = 6;
+                enemy2Index = "Goblin";
+                enemylvl2 = 4;
+                enemy3Index = "Goblin";
+                enemylvl3 = 4;
+                break;
+
+            case "test4":
+
+                enemyCount = 3;
+                enemy1Index = "Skeleton";
+                enemylvl1 = 10;
+                enemy2Index = "Skeleton";
+                enemylvl2 = 6;
+                enemy3Index = "Skeleton";
+                enemylvl3 = 5;
+                break;
+
+            case "test5":
+
+                enemyCount = 3;
+                enemy1Index = "Skeleton";
+                enemylvl1 = 12;
+                enemy2Index = "Goblin";
+                enemylvl2 = 8;
+                enemy3Index = "Skeleton";
+                enemylvl3 = 7;
+                break;
+
+            case "test6":
+
+                enemyCount = 3;
+                enemy1Index = "FireElemental";
+                enemylvl1 = 14;
+                enemy2Index = "Goblin";
+                enemylvl2 = 9;
+                enemy3Index = "Skeleton";
+                enemylvl3 = 10;
+                break;
+
+            case "test7":
+
+                enemyCount = 2;
+                enemy1Index = "Bandit";
+                enemylvl1 = 15;
+                enemy2Index = "Bandit";
+                enemylvl2 = 13;
+
+
+                enemy3Index = "Goblin";
+                break;
+
+            case "test8":
+
+                enemyCount = 3;
+                enemy1Index = "Bandit";
+                enemylvl1 = 16;
+                enemy2Index = "Bandit";
+                enemylvl2 = 16;
+                enemy3Index = "FireElemental";
+                enemylvl3 = 13;
+                break;
+
+            case "test9":
+
+                enemyCount = 1;
+                enemy1Index = "Ghost";
+                enemylvl1 = 15;
+
+
+                enemy2Index = "Goblin";
+                enemy3Index = "Goblin";
+                break;
+
+            case "test10":
+
+                enemyCount = 3;
+                enemy1Index = "Bandit";
+                enemylvl1 = 20;
+                enemy2Index = "Ghost";
+                enemylvl2 = 20;
+                enemy3Index = "Ghost";
+                enemylvl3 = 20;
                 break;
         }
     }
