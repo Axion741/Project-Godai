@@ -19,6 +19,7 @@ public class BattleController : MonoBehaviour {
     private ResultsController resultsController;
     private BattleButtonController battleButtonController;
     private BarController barController;
+    private LevelFlagger levelFlagger;
 
     private GameObject player1;
     private GameObject playerSpawn2;
@@ -55,6 +56,8 @@ public class BattleController : MonoBehaviour {
         battleButtonController.Setup();
         turnManager.TurnManagerSetup();
         turnManager.RunTurn();
+        levelFlagger.FlagSetup(battleType);
+        
     }
 
     private void Update()
@@ -71,6 +74,7 @@ public class BattleController : MonoBehaviour {
         spawnController = FindObjectOfType<SpawnController>();
         battleButtonController = FindObjectOfType<BattleButtonController>();
         barController = FindObjectOfType<BarController>();
+        levelFlagger = FindObjectOfType<LevelFlagger>();
         player1 = GameObject.Find("PlayerCharacter");
         playerStats = player1.GetComponent<PlayerStats>();
         playerStats.PlayerStatsSetup();
@@ -279,6 +283,7 @@ public class BattleController : MonoBehaviour {
                 {
                     resultsController.WinFight();
                     victorious = true;
+                    levelFlagger.FlagTrigger();
                 }
                 break;
 
@@ -287,6 +292,7 @@ public class BattleController : MonoBehaviour {
                 {
                     resultsController.WinFight();
                     victorious = true;
+                    levelFlagger.FlagTrigger();
                 }
                 break;
 
@@ -295,6 +301,7 @@ public class BattleController : MonoBehaviour {
                 {
                     resultsController.WinFight();
                     victorious = true;
+                    levelFlagger.FlagTrigger();
                 }
                 break;
         }

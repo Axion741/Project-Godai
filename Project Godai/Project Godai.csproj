@@ -328,7 +328,9 @@
     <Compile Include="Assets\Scripts\EnemyStatsScripts\GoblinStats.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\IEnemyStats.cs" />
     <Compile Include="Assets\Scripts\EnemyStatsScripts\SkeletonStats.cs" />
+    <Compile Include="Assets\Scripts\LevelFlagger.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\LevelSelectController.cs" />
     <Compile Include="Assets\Scripts\ModNumberController.cs" />
     <Compile Include="Assets\Scripts\MusicManager.cs" />
     <Compile Include="Assets\Scripts\OptionsController.cs" />

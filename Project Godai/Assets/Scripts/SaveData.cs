@@ -44,4 +44,8 @@ public class SaveData : MonoBehaviour
     public float experiencePoints3;
     public int statPoints3;
 
+    //LEVEL PROGRESS//
+
+    public int highestLevelUnlocked;
+
 }
