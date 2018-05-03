@@ -25,7 +25,7 @@ public class LevelManager : MonoBehaviour {
 
     }
 
-    public void LoadStart(string name) //USE IF LOADING TO START SCREEN
+    public void LoadStart(string name) //USE IF LOADING TO/FROM START SCREEN
     {
         if (SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 4 || SceneManager.GetActiveScene().buildIndex == 5)
         {

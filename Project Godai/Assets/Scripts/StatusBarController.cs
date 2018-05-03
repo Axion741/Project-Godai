@@ -10,6 +10,7 @@ public class StatusBarController : MonoBehaviour {
     private bool attachedPlayer = false;
     private bool attachedEnemy = false;
 
+
     public Image healthBar;
     public Image magicBar;
 
