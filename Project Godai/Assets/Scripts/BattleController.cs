@@ -168,19 +168,19 @@ public class BattleController : MonoBehaviour {
     void EnemyTargetSetup()
     {
 
-        enemyAbilities1.SwitchTargets();
+        enemyAbilities1.SetupTargetList();
 
         if (spawnController.enemyCount > 1)
         {
 
-            enemyAbilities2.SwitchTargets();
+            enemyAbilities2.SetupTargetList();
 
         }
         else return;
         if (spawnController.enemyCount == 3)
         {
 
-            enemyAbilities3.SwitchTargets();
+            enemyAbilities3.SetupTargetList();
 
         }
         else return;

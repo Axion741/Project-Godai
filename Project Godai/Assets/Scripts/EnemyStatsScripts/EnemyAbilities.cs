@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyAbilities : MonoBehaviour {
 
+    List<int> targetList = new List<int>();
     private Animator eAnim;
     public Animator pAnim;
     private GameObject pBlast;
@@ -37,6 +38,7 @@ public class EnemyAbilities : MonoBehaviour {
     public float experienceValue;
     public int turnSpeed;
     public int targetChoice;
+    public int listLength;
 
     private float damage;
     private float sDamage;
@@ -112,61 +114,185 @@ public class EnemyAbilities : MonoBehaviour {
 
     public void RunTurn()
     {
+        StartCoroutine(TurnProcess());
+    }
+
+    private IEnumerator TurnProcess()
+    {
         SwitchTargets();
-        if(playerAbilities.defeated != true)
+        yield return new WaitForSeconds(0.5f);
+        if (playerAbilities != null)
         {
-            EnemyAI();
+        EnemyAI();
         }
-        else
+
+    }
+
+    //public void SwitchTargets()
+    //{
+    //    targetChoice = Random.Range(1, battleController.playerCount + 1);
+    //    print("switchTargets");
+    //    switch (targetChoice)
+    //    {
+    //        case 1: 
+    //            pAnim = player.GetComponent<Animator>();
+    //            playerAbilities = player.GetComponent<PlayerAbilities>();
+    //            playerDodge = playerAbilities.evasionChance;
+    //            if (playerAbilities.defeated == true)
+    //            {
+    //                SwitchTargets();
+    //            }
+    //            break;
+
+    //        case 2:
+    //            pAnim = player2Spawn.GetComponentInChildren<Animator>();
+    //            playerAbilities = player2Spawn.GetComponentInChildren<PlayerAbilities>();
+    //            if(playerAbilities == null)
+    //            {
+    //                SwitchTargets();
+    //            }
+    //            playerDodge = playerAbilities.evasionChance;
+    //            if (playerAbilities.defeated == true)
+    //            {
+    //                SwitchTargets();
+    //            }
+    //            break;
+
+    //        case 3:
+    //            pAnim = player3Spawn.GetComponentInChildren<Animator>();
+    //            playerAbilities = player3Spawn.GetComponentInChildren<PlayerAbilities>();
+    //            if (playerAbilities == null)
+    //            {
+    //                SwitchTargets();
+    //            }
+    //            playerDodge = playerAbilities.evasionChance;
+
+    //            if (playerAbilities.defeated == true)
+    //            {
+    //                SwitchTargets();
+    //            }
+    //            break;
+    //    }
+    //}
+
+    public void SetupTargetList()
+    {
+        switch (battleController.playerCount)
         {
-            RunTurn();
+            case 1:
+                BuildTargetList(1);
+                listLength = 1;
+                break;
+
+            case 2:
+                BuildTargetList(2);
+                listLength = 2;
+                break;
+            case 3:
+                BuildTargetList(3);
+                listLength = 3;
+                break;
+
+        }
+    }
+
+    private void BuildTargetList(int numberOfTargets)
+    {
+        switch (numberOfTargets)
+        {
+            case 1:
+                targetList.Add(1);
+                SwitchTargets();
+                break;
+
+            case 2:
+                targetList.Add(1);
+                targetList.Add(2);
+                SwitchTargets();
+                break;
+
+            case 3:
+                targetList.Add(1);
+                targetList.Add(2);
+                targetList.Add(3);
+                SwitchTargets();
+                break;
         }
     }
 
     public void SwitchTargets()
     {
-        targetChoice = Random.Range(1, battleController.playerCount + 1);
-        print("switchTargets");
-        switch (targetChoice)
+
+        if(listLength > 0)
         {
-            case 1: 
+            targetChoice = Random.Range(0, listLength);
+            SetNewTarget(targetList[targetChoice]);
+        }
+        else if (listLength == 0)
+        {
+            SetNewTarget(0);
+        }
+;
+    }
+
+    private void SetNewTarget(int targetPlayer)
+    {
+        switch (targetPlayer)
+        {
+            case 0:
+                pAnim = null;
+                playerAbilities = null;
+                playerDodge = 0;
+                break;
+
+            case 1:
                 pAnim = player.GetComponent<Animator>();
                 playerAbilities = player.GetComponent<PlayerAbilities>();
                 playerDodge = playerAbilities.evasionChance;
-                if (playerAbilities.defeated == true)
-                {
-                    SwitchTargets();
-                }
+                CheckForDefeated(targetPlayer);
                 break;
 
             case 2:
                 pAnim = player2Spawn.GetComponentInChildren<Animator>();
                 playerAbilities = player2Spawn.GetComponentInChildren<PlayerAbilities>();
-                if(playerAbilities == null)
-                {
-                    SwitchTargets();
-                }
                 playerDodge = playerAbilities.evasionChance;
-                if (playerAbilities.defeated == true)
-                {
-                    SwitchTargets();
-                }
+                CheckForDefeated(targetPlayer);
                 break;
 
             case 3:
                 pAnim = player3Spawn.GetComponentInChildren<Animator>();
                 playerAbilities = player3Spawn.GetComponentInChildren<PlayerAbilities>();
-                if (playerAbilities == null)
-                {
-                    SwitchTargets();
-                }
                 playerDodge = playerAbilities.evasionChance;
-
-                if (playerAbilities.defeated == true)
-                {
-                    SwitchTargets();
-                }
+                CheckForDefeated(targetPlayer);
                 break;
+
+        }
+    }
+
+    private void CheckForDefeated(int targetPlayer)
+    {
+        if(playerAbilities.defeated == true)
+        {
+            switch (targetPlayer)
+            {
+                case 1:
+                    targetList.Remove(1);
+                    listLength--;
+                    SwitchTargets();
+                    break;
+
+                case 2:
+                    targetList.Remove(2);
+                    listLength--;
+                    SwitchTargets();
+                    break;
+
+                case 3:
+                    targetList.Remove(3);
+                    listLength--;
+                    SwitchTargets();
+                    break;
+            }
         }
     }
 
