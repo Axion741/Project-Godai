@@ -23,6 +23,7 @@ public class SpawnController : MonoBehaviour {
     public int enemylvl3;
     private int randomChoice;
     public int enemyCount;
+    public string background;
 
     public Dictionary<string, GameObject> prefabDict = new Dictionary<string, GameObject>();
         
@@ -204,6 +205,7 @@ public class SpawnController : MonoBehaviour {
                 enemyCount = 1;
                 enemy1Index = "Goblin";
                 enemylvl1 = 1;
+                background = "ForestMorning";            
 
 
                 enemy2Index = "Goblin";
@@ -217,7 +219,7 @@ public class SpawnController : MonoBehaviour {
                 enemylvl1 = 3;
                 enemy2Index = "Goblin";
                 enemylvl2 = 2;
-
+                background = "Forest";
 
                 enemy3Index = "Goblin";
                 break;
@@ -231,6 +233,7 @@ public class SpawnController : MonoBehaviour {
                 enemylvl2 = 4;
                 enemy3Index = "Goblin";
                 enemylvl3 = 4;
+                background = "ForestEvening";
                 break;
 
             case "test4":
@@ -242,6 +245,7 @@ public class SpawnController : MonoBehaviour {
                 enemylvl2 = 6;
                 enemy3Index = "Skeleton";
                 enemylvl3 = 5;
+                background = "ForestMorning";
                 break;
 
             case "test5":
@@ -253,6 +257,7 @@ public class SpawnController : MonoBehaviour {
                 enemylvl2 = 8;
                 enemy3Index = "Skeleton";
                 enemylvl3 = 7;
+                background = "ForestRocks";
                 break;
 
             case "test6":
@@ -264,6 +269,7 @@ public class SpawnController : MonoBehaviour {
                 enemylvl2 = 9;
                 enemy3Index = "Skeleton";
                 enemylvl3 = 10;
+                background = "ForestRocks";
                 break;
 
             case "test7":
@@ -273,6 +279,7 @@ public class SpawnController : MonoBehaviour {
                 enemylvl1 = 15;
                 enemy2Index = "Bandit";
                 enemylvl2 = 13;
+                background = "ForestEvening";
 
 
                 enemy3Index = "Goblin";
@@ -287,6 +294,7 @@ public class SpawnController : MonoBehaviour {
                 enemylvl2 = 16;
                 enemy3Index = "FireElemental";
                 enemylvl3 = 13;
+                background = "ForestMorning";
                 break;
 
             case "test9":
@@ -298,6 +306,7 @@ public class SpawnController : MonoBehaviour {
 
                 enemy2Index = "Goblin";
                 enemy3Index = "Goblin";
+                background = "Forest";
                 break;
 
             case "test10":
@@ -309,6 +318,7 @@ public class SpawnController : MonoBehaviour {
                 enemylvl2 = 20;
                 enemy3Index = "Ghost";
                 enemylvl3 = 20;
+                background = "ForestEvening";
                 break;
         }
     }

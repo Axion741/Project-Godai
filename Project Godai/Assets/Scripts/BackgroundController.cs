@@ -27,47 +27,34 @@ public class BackgroundController : MonoBehaviour {
             backgroundDict.Add(texture.name, texture);
         }
     }
-    //Called from BattleController.Awake
-    public void SetBackground(string battleType)
+
+
+        //Called from BattleController.Awake
+        //Background set in SpawnController.DetermineBattleType
+    public void SetBackgroundImage(string background)
     {
-        switch (battleType)
+        switch (background)
         {
-            case "random":
+            case null:
                 randomSelection = Random.Range(0, backgroundArray.Length);
                 backgroundImage.texture = backgroundArray[randomSelection];
                 break;
 
-            case "test1":
+            case "Forest":
+                backgroundImage.texture = backgroundDict["Forest"]; 
+                break;
+
+            case "ForestMorning":
                 backgroundImage.texture = backgroundDict["ForestMorning"];
                 break;
 
-            case "test2":
-                backgroundImage.texture = backgroundDict["Forest"];
+            case "ForestEvening":
+                backgroundImage.texture = backgroundDict["ForestEvening"];
                 break;
 
-            case "test3":
-                backgroundImage.texture = backgroundDict["ForestEvening"]; break;
-
-            case "test4":
-                backgroundImage.texture = backgroundDict["ForestRocks"]; break;
-
-            case "test5":
-                backgroundImage.texture = backgroundDict["Forest"]; break;
-
-            case "test6":
-                backgroundImage.texture = backgroundDict["ForestRocks"]; break;
-
-            case "test7":
-                backgroundImage.texture = backgroundDict["ForestMorning"]; break;
-
-            case "test8":
-                backgroundImage.texture = backgroundDict["Forest"]; break;
-
-            case "test9":
-                backgroundImage.texture = backgroundDict["ForestEvening"]; break;
-
-            case "test10":
-                backgroundImage.texture = backgroundDict["ForestRocks"]; break;
+            case "ForestRocks":
+                backgroundImage.texture = backgroundDict["ForestRocks"];
+                break;
         }
     }
 }

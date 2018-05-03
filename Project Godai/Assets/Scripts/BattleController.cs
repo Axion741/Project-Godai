@@ -41,7 +41,7 @@ public class BattleController : MonoBehaviour {
     private bool victorious = false;
     private bool defeated = false;
     public string battleType;
-
+    private string background;
 
 
     // Use this for initialization
@@ -58,8 +58,9 @@ public class BattleController : MonoBehaviour {
         turnManager.TurnManagerSetup();
         turnManager.RunTurn();
         levelFlagger.FlagSetup(battleType);
-        backgroundController.SetBackground(battleType);
-        
+        background = spawnController.background;
+        backgroundController.SetBackgroundImage(background);
+
     }
 
     private void Update()
