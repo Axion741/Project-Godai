@@ -27,6 +27,8 @@ Have fun and wish me luck! -Axion
 
 Updates:
 
+12/9/18: Work on Godai has pretty much stopped for now. I'm concentrating on building my skills and getting a job in programming, so I've had little time to work on here. Eventually I'll get around to the massive job of rebuilding the animations and sprites for the characters, but this project is low priority for me at the moment.
+
 17/4/18: Work has been super slow due to work and family commitments, but hope to start getting back to the grindstone. The game is now roughly playable, but lacks content for the moment, and future updates could cause serious issues. Next on the agenda is allied experience and levelling, as well as fixing animation bugs with the allied characters. 
 
 
